@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace MalamuleleHealth.Migrations
 {
     [DbContext(typeof(MalamuleleHealthDbContext))]
-    [Migration("20201217144556_Upgrade_To_ABP_6_1_1")]
-    partial class Upgrade_To_ABP_6_1_1
+    [Migration("20230823120854_appointmentMigration")]
+    partial class appointmentMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Abp.Application.Editions.Edition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -68,8 +72,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -105,8 +110,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -127,6 +133,10 @@ namespace MalamuleleHealth.Migrations
                     b.Property<string>("Exception")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("ExceptionMessage")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<int>("ExecutionDuration")
                         .HasColumnType("int");
@@ -176,8 +186,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -213,8 +224,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(256)
@@ -248,8 +260,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -308,8 +321,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(256)
@@ -343,8 +357,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("LoginProvider")
                         .IsRequired()
@@ -366,6 +381,10 @@ namespace MalamuleleHealth.Migrations
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("ProviderKey", "TenantId")
+                        .IsUnique()
+                        .HasFilter("[TenantId] IS NOT NULL");
+
                     b.HasIndex("TenantId", "UserId");
 
                     b.HasIndex("TenantId", "LoginProvider", "ProviderKey");
@@ -377,8 +396,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -425,8 +445,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -459,8 +480,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -492,8 +514,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("ExpireDate")
                         .HasColumnType("datetime2");
@@ -529,8 +552,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -574,8 +598,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -617,14 +642,16 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicPropertyId")
                         .HasColumnType("int");
 
                     b.Property<string>("EntityFullName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -644,8 +671,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicEntityPropertyId")
                         .HasColumnType("int");
@@ -671,8 +699,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -684,7 +713,8 @@ namespace MalamuleleHealth.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -702,8 +732,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicPropertyId")
                         .HasColumnType("int");
@@ -726,8 +757,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("ChangeTime")
                         .HasColumnType("datetime2");
@@ -762,8 +794,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -814,8 +847,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<long>("EntityChangeId")
                         .HasColumnType("bigint");
@@ -856,8 +890,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -911,8 +946,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -999,6 +1035,9 @@ namespace MalamuleleHealth.Migrations
 
                     b.Property<byte>("Severity")
                         .HasColumnType("tinyint");
+
+                    b.Property<string>("TargetNotifiers")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenantIds")
                         .HasMaxLength(131072)
@@ -1118,6 +1157,9 @@ namespace MalamuleleHealth.Migrations
                     b.Property<int>("State")
                         .HasColumnType("int");
 
+                    b.Property<string>("TargetNotifiers")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
@@ -1138,8 +1180,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -1191,8 +1234,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1326,8 +1370,9 @@ namespace MalamuleleHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -1394,14 +1439,65 @@ namespace MalamuleleHealth.Migrations
                     b.HasIndex("TenantId", "NormalizedName");
 
                     b.ToTable("AbpRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "74957665-e452-4ee2-98ec-a9017627ec91",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4343),
+                            DisplayName = "Administrator",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Admin",
+                            NormalizedName = "D24D3CC5E2184FBBBEBC83ECF867D5F1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConcurrencyStamp = "b2f05314-107e-42f9-8c7b-d2a42da63bc4",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4378),
+                            DisplayName = "Doctor",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Doctor",
+                            NormalizedName = "AC410A05725C464091B76EC38677425D"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConcurrencyStamp = "58cf0b6f-157a-4874-97a1-67d65cdfe5c0",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4385),
+                            DisplayName = "Nurse",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Nurse",
+                            NormalizedName = "11512C9CBD8246578E0434CCC8498EF1"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ConcurrencyStamp = "9b10e873-1c86-42ff-82dc-1df2cdc2152f",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4406),
+                            DisplayName = "Patient",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Patient",
+                            NormalizedName = "282547FE1302404D9A3BBE99E3E388C3"
+                        });
                 });
 
             modelBuilder.Entity("MalamuleleHealth.Authorization.Users.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -1523,12 +1619,100 @@ namespace MalamuleleHealth.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("MalamuleleHealth.Domain.Appointment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DoctorID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PatientID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("PatientID");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("MalamuleleHealth.Domain.Department", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("MalamuleleHealth.Domain.Prescription", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<long?>("AppointmentID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DoctorID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Instructions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medications")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PrescriptionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.ToTable("Prescriptions");
+                });
+
             modelBuilder.Entity("MalamuleleHealth.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConnectionString")
                         .HasMaxLength(1024)
@@ -1600,17 +1784,6 @@ namespace MalamuleleHealth.Migrations
                     b.HasDiscriminator().HasValue("EditionFeatureSetting");
                 });
 
-            modelBuilder.Entity("Abp.MultiTenancy.TenantFeatureSetting", b =>
-                {
-                    b.HasBaseType("Abp.Application.Features.FeatureSetting");
-
-                    b.HasIndex("TenantId", "Name");
-
-                    b.ToTable("AbpFeatures");
-
-                    b.HasDiscriminator().HasValue("TenantFeatureSetting");
-                });
-
             modelBuilder.Entity("Abp.Authorization.Roles.RolePermissionSetting", b =>
                 {
                     b.HasBaseType("Abp.Authorization.PermissionSetting");
@@ -1637,6 +1810,17 @@ namespace MalamuleleHealth.Migrations
                     b.ToTable("AbpPermissions");
 
                     b.HasDiscriminator().HasValue("UserPermissionSetting");
+                });
+
+            modelBuilder.Entity("Abp.MultiTenancy.TenantFeatureSetting", b =>
+                {
+                    b.HasBaseType("Abp.Application.Features.FeatureSetting");
+
+                    b.HasIndex("TenantId", "Name");
+
+                    b.ToTable("AbpFeatures");
+
+                    b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Roles.RoleClaim", b =>
@@ -1802,6 +1986,36 @@ namespace MalamuleleHealth.Migrations
                     b.Navigation("DeleterUser");
 
                     b.Navigation("LastModifierUser");
+                });
+
+            modelBuilder.Entity("MalamuleleHealth.Domain.Appointment", b =>
+                {
+                    b.HasOne("Abp.Authorization.Users.UserRole", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorID");
+
+                    b.HasOne("Abp.Authorization.Users.UserRole", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MalamuleleHealth.Domain.Prescription", b =>
+                {
+                    b.HasOne("MalamuleleHealth.Domain.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID");
+
+                    b.HasOne("Abp.Authorization.Users.UserRole", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorID");
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("MalamuleleHealth.MultiTenancy.Tenant", b =>

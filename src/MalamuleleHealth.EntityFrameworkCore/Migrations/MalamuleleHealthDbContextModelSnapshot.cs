@@ -1437,6 +1437,56 @@ namespace MalamuleleHealth.Migrations
                     b.HasIndex("TenantId", "NormalizedName");
 
                     b.ToTable("AbpRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "74957665-e452-4ee2-98ec-a9017627ec91",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4343),
+                            DisplayName = "Administrator",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Admin",
+                            NormalizedName = "D24D3CC5E2184FBBBEBC83ECF867D5F1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConcurrencyStamp = "b2f05314-107e-42f9-8c7b-d2a42da63bc4",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4378),
+                            DisplayName = "Doctor",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Doctor",
+                            NormalizedName = "AC410A05725C464091B76EC38677425D"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConcurrencyStamp = "58cf0b6f-157a-4874-97a1-67d65cdfe5c0",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4385),
+                            DisplayName = "Nurse",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Nurse",
+                            NormalizedName = "11512C9CBD8246578E0434CCC8498EF1"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ConcurrencyStamp = "9b10e873-1c86-42ff-82dc-1df2cdc2152f",
+                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4406),
+                            DisplayName = "Patient",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Patient",
+                            NormalizedName = "282547FE1302404D9A3BBE99E3E388C3"
+                        });
                 });
 
             modelBuilder.Entity("MalamuleleHealth.Authorization.Users.User", b =>
