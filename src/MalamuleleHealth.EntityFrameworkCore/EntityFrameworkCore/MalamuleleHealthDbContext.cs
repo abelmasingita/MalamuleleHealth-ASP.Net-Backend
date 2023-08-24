@@ -11,7 +11,7 @@ namespace MalamuleleHealth.EntityFrameworkCore
     {
         public static class RoleNames
         {
-            public const string Admin = "Admin";
+            public const string Staff = "Staff";
             public const string Doctor = "Doctor";
             public const string Nurse = "Nurse";
             public const string Patient = "Patient";
@@ -32,7 +32,7 @@ namespace MalamuleleHealth.EntityFrameworkCore
 
             // Seed roles
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = 3, Name = RoleNames.Admin, DisplayName = "Administrator", IsStatic = true, IsDefault = false },
+                new Role { Id = 3, Name = RoleNames.Staff, DisplayName = "Staff", IsStatic = true, IsDefault = false },
                 new Role { Id = 4, Name = RoleNames.Doctor, DisplayName = "Doctor", IsStatic = true, IsDefault = false },
                 new Role { Id = 5, Name = RoleNames.Nurse, DisplayName = "Nurse", IsStatic = true, IsDefault = false},
                 new Role { Id = 6, Name = RoleNames.Patient, DisplayName = "Patient", IsStatic = true, IsDefault = false}
