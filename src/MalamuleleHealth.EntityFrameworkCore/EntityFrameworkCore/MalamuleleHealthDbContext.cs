@@ -40,7 +40,7 @@ namespace MalamuleleHealth.EntityFrameworkCore
             );
         }
 
-        public DbSet<Department> Departments { get; set; }
+        public DbSet<Prescription> Departments { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
 

@@ -12,7 +12,7 @@ using Abp.Domain.Repositories;
 namespace MalamuleleHealth.Services.Departments
 {
     public class DepartmentAppService : AsyncCrudAppService<Department, DepartmentDto, long, PagedAndSortedResultRequestDto>,
-    IDepartmentAppService
+    IPrescriptionAppService
     {
         public DepartmentAppService(IRepository<Department, long> repository) : base(repository)
         {

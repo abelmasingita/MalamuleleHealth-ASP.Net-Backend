@@ -9,7 +9,7 @@ using MalamuleleHealth.Services.Departments.Dto;
 
 namespace MalamuleleHealth.Services.Departments
 {
-    public interface IDepartmentAppService : IAsyncCrudAppService<DepartmentDto, long, PagedAndSortedResultRequestDto>
+    public interface IPrescriptionAppService : IAsyncCrudAppService<DepartmentDto, long, PagedAndSortedResultRequestDto>
     {
 
     }
