@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.Domain
 {
-    public class Department : Entity<long>
+    public class Department : FullAuditedEntity<long>
     {
         [Required]
         [DisplayName("Department Name")]

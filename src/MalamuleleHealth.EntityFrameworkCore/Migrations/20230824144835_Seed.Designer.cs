@@ -4,6 +4,7 @@ using MalamuleleHealth.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalamuleleHealth.Migrations
 {
     [DbContext(typeof(MalamuleleHealthDbContext))]
-    partial class MalamuleleHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230824144835_Seed")]
+    partial class Seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1442,50 +1444,50 @@ namespace MalamuleleHealth.Migrations
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "ba9b9f5f-c768-4a58-b0da-3254fb7c66da",
-                            CreationTime = new DateTime(2023, 8, 28, 14, 45, 54, 67, DateTimeKind.Local).AddTicks(8183),
+                            ConcurrencyStamp = "37e931da-805f-41d5-91e7-09f3ff8fda19",
+                            CreationTime = new DateTime(2023, 8, 24, 16, 48, 34, 935, DateTimeKind.Local).AddTicks(672),
                             DisplayName = "Staff",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Staff",
-                            NormalizedName = "46979AFE7F764B0381C0AA80CE7D6AAB"
+                            NormalizedName = "5A7E730BF7554FE3A6094730CAE54E92"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "950d54aa-b999-43d0-93dc-39c99b51f732",
-                            CreationTime = new DateTime(2023, 8, 28, 14, 45, 54, 67, DateTimeKind.Local).AddTicks(8260),
+                            ConcurrencyStamp = "9e58f31c-8b4e-4d66-a17c-72068e07a99f",
+                            CreationTime = new DateTime(2023, 8, 24, 16, 48, 34, 935, DateTimeKind.Local).AddTicks(706),
                             DisplayName = "Doctor",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Doctor",
-                            NormalizedName = "523D81A2D0054D719EAC1EFC945C1ED4"
+                            NormalizedName = "3FFBC01B63864FE697A6946954F9A43D"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "f22acd0e-ecc6-4751-b43f-b76ceb340abe",
-                            CreationTime = new DateTime(2023, 8, 28, 14, 45, 54, 67, DateTimeKind.Local).AddTicks(8269),
+                            ConcurrencyStamp = "cef2845c-2941-41b3-aee8-df33528b2737",
+                            CreationTime = new DateTime(2023, 8, 24, 16, 48, 34, 935, DateTimeKind.Local).AddTicks(740),
                             DisplayName = "Nurse",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Nurse",
-                            NormalizedName = "83F7D355B11847DA9045F2DF5D6140A8"
+                            NormalizedName = "EA9851F3D9E84E309DB272C2FDA5A0F4"
                         },
                         new
                         {
                             Id = 6,
-                            ConcurrencyStamp = "3e70746b-6a7c-4c56-9547-33b653b09053",
-                            CreationTime = new DateTime(2023, 8, 28, 14, 45, 54, 67, DateTimeKind.Local).AddTicks(8277),
+                            ConcurrencyStamp = "691a84b1-67e4-4eed-9395-e70f0aca794b",
+                            CreationTime = new DateTime(2023, 8, 24, 16, 48, 34, 935, DateTimeKind.Local).AddTicks(748),
                             DisplayName = "Patient",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Patient",
-                            NormalizedName = "8DF81C19170E4168870B1821C10A5E3E"
+                            NormalizedName = "A2F55578137244D7BED350926A32DFCA"
                         });
                 });
 
@@ -1631,28 +1633,7 @@ namespace MalamuleleHealth.Migrations
                     b.Property<DateTime>("AppointmentTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<long?>("DoctorID")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("PatientID")
@@ -1681,29 +1662,8 @@ namespace MalamuleleHealth.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1725,32 +1685,11 @@ namespace MalamuleleHealth.Migrations
                     b.Property<long?>("AppointmentID")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<long?>("DoctorID")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Instructions")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Medications")
                         .HasColumnType("nvarchar(max)");

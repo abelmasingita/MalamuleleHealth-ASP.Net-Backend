@@ -1,5 +1,6 @@
 ﻿using Abp.Authorization.Users;
 using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.Domain
 {
-    public class Appointment : Entity<long>
+    public class Appointment : FullAuditedEntity<long>
     {
         [DisplayName("Appointment Date")]
         public DateTime AppointmentDate { get; set; }

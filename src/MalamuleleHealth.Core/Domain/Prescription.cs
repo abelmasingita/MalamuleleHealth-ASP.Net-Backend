@@ -1,5 +1,6 @@
 ﻿using Abp.Authorization.Users;
 using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.Domain
 {
-    public class Prescription : Entity<long>
+    public class Prescription : FullAuditedEntity<long>
     {
         [DisplayName("Medication")]
         public string Medications { get; set; }
