@@ -14,7 +14,7 @@ namespace MalamuleleHealth.Domain
     public class Prescription : FullAuditedEntity<long>
     {
         [DisplayName("Medication")]
-        public string Medications { get; set; }
+        public string Medication { get; set; }
 
         [DisplayName("Instructions")]
         public string Instructions { get; set; }
@@ -27,7 +27,7 @@ namespace MalamuleleHealth.Domain
         [ForeignKey("AppointmentID")]
         public virtual Appointment Appointment { get; set; }
 
-        [DisplayName("Doctor")]
+        [DisplayName("Responsible Doctor")]
         public long? DoctorID { get; set; }
         [ForeignKey("DoctorID")]
         public virtual UserRole Doctor { get; set; }

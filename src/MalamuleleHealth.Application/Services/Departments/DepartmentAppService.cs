@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 using MalamuleleHealth.Domain;
 using MalamuleleHealth.Services.Departments.Dto;
 using Abp.Domain.Repositories;
+using Abp.Authorization;
+using MalamuleleHealth.Authorization;
 
 namespace MalamuleleHealth.Services.Departments
 {
+    [AbpAuthorize(PermissionNames.Pages_Users)]
     public class DepartmentAppService : AsyncCrudAppService<Department, DepartmentDto, long, PagedAndSortedResultRequestDto>,
     IPrescriptionAppService
     {

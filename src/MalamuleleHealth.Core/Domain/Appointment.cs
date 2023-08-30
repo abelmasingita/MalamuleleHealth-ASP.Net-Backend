@@ -30,7 +30,7 @@ namespace MalamuleleHealth.Domain
         [ForeignKey("PatientID")]
         public virtual UserRole Patient { get; set; }
 
-        [DisplayName("Doctor")]
+        [DisplayName("Responsible Doctor")]
         public long? DoctorID { get; set; }
         [ForeignKey("DoctorID")]
         public virtual UserRole Doctor { get; set; }
