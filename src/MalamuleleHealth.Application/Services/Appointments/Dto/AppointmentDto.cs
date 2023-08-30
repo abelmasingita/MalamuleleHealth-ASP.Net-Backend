@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MalamuleleHealth.Services.Appointments.Dto
 {
     [AutoMap(typeof(Appointment))]
-    public class AppointmentDto : AuditedEntityDto<long>
+    public class AppointmentDto : AuditedEntityDto<Guid>
     {
 
         public DateTime AppointmentDate { get; set; }
@@ -16,11 +16,11 @@ namespace MalamuleleHealth.Services.Appointments.Dto
         public string Purpose { get; set; }
         public string Status { get; set; }
 
-        public long? PatientID { get; set; }
+        public int? PatientID { get; set; }
         [ForeignKey("PatientID")]
         public virtual UserRole Patient { get; set; }
 
-        public long? DoctorID { get; set; }
+        public int? DoctorID { get; set; }
         [ForeignKey("DoctorID")]
         public virtual UserRole Doctor { get; set; }
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalamuleleHealth.Migrations
 {
     [DbContext(typeof(MalamuleleHealthDbContext))]
-    [Migration("20230823120854_appointmentMigration")]
-    partial class appointmentMigration
+    [Migration("20230830203642_Remigrations")]
+    partial class Remigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1443,51 +1443,63 @@ namespace MalamuleleHealth.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
-                            ConcurrencyStamp = "74957665-e452-4ee2-98ec-a9017627ec91",
-                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4343),
-                            DisplayName = "Administrator",
-                            IsDefault = false,
-                            IsDeleted = false,
-                            IsStatic = true,
-                            Name = "Admin",
-                            NormalizedName = "D24D3CC5E2184FBBBEBC83ECF867D5F1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConcurrencyStamp = "b2f05314-107e-42f9-8c7b-d2a42da63bc4",
-                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4378),
+                            Id = 1,
+                            ConcurrencyStamp = "b9f9cc38-444e-4ecd-9351-be71ed72ff97",
+                            CreationTime = new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8796),
                             DisplayName = "Doctor",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Doctor",
-                            NormalizedName = "AC410A05725C464091B76EC38677425D"
+                            NormalizedName = "0F8132B810CD48DDAAC8E6E6FD024719"
                         },
                         new
                         {
-                            Id = 5,
-                            ConcurrencyStamp = "58cf0b6f-157a-4874-97a1-67d65cdfe5c0",
-                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4385),
+                            Id = 2,
+                            ConcurrencyStamp = "4e0ec72f-f6c1-449d-bc9c-a8dc4c6d13ec",
+                            CreationTime = new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8835),
                             DisplayName = "Nurse",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Nurse",
-                            NormalizedName = "11512C9CBD8246578E0434CCC8498EF1"
+                            NormalizedName = "8C8363669E4B41689BA5E22A1F03DD27"
                         },
                         new
                         {
-                            Id = 6,
-                            ConcurrencyStamp = "9b10e873-1c86-42ff-82dc-1df2cdc2152f",
-                            CreationTime = new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4406),
+                            Id = 3,
+                            ConcurrencyStamp = "d20b5f99-99e4-405c-925f-1d473f7ccdb1",
+                            CreationTime = new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8853),
                             DisplayName = "Patient",
                             IsDefault = false,
                             IsDeleted = false,
                             IsStatic = true,
                             Name = "Patient",
-                            NormalizedName = "282547FE1302404D9A3BBE99E3E388C3"
+                            NormalizedName = "3B0A431A17AB47C88FDADF6FCE678E55"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConcurrencyStamp = "118ce507-8fa8-4082-85fb-51524da650e2",
+                            CreationTime = new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8860),
+                            DisplayName = "Pharmacist",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Pharmacist",
+                            NormalizedName = "3678097591A246729B254A385F565903"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConcurrencyStamp = "e714851e-2c63-409d-84a0-ed8ec0d658f8",
+                            CreationTime = new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8912),
+                            DisplayName = "Lab Technician",
+                            IsDefault = false,
+                            IsDeleted = false,
+                            IsStatic = true,
+                            Name = "Lab Technician",
+                            NormalizedName = "14C166A7061D4BF9BB5523621F26E95B"
                         });
                 });
 
@@ -1621,11 +1633,9 @@ namespace MalamuleleHealth.Migrations
 
             modelBuilder.Entity("MalamuleleHealth.Domain.Appointment", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
@@ -1633,7 +1643,28 @@ namespace MalamuleleHealth.Migrations
                     b.Property<DateTime>("AppointmentTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<long?>("DoctorID")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("PatientID")
@@ -1654,36 +1685,26 @@ namespace MalamuleleHealth.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("MalamuleleHealth.Domain.Department", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
-                });
-
             modelBuilder.Entity("MalamuleleHealth.Domain.Prescription", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AppointmentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<long?>("AppointmentID")
+                    b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("DoctorID")
                         .HasColumnType("bigint");
@@ -1691,7 +1712,16 @@ namespace MalamuleleHealth.Migrations
                     b.Property<string>("Instructions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Medications")
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Medication")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PrescriptionDate")
@@ -1703,7 +1733,7 @@ namespace MalamuleleHealth.Migrations
 
                     b.HasIndex("DoctorID");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescription");
                 });
 
             modelBuilder.Entity("MalamuleleHealth.MultiTenancy.Tenant", b =>

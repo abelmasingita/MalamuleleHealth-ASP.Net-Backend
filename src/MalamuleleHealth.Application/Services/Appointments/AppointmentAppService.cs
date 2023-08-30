@@ -14,10 +14,10 @@ using MalamuleleHealth.Authorization;
 namespace MalamuleleHealth.Services.Appointments
 {
     [AbpAuthorize(PermissionNames.Pages_Users)]
-    public class AppointmentAppService : AsyncCrudAppService<Appointment, AppointmentDto, long, PagedAndSortedResultRequestDto>,
+    public class AppointmentAppService : AsyncCrudAppService<Appointment, AppointmentDto, Guid, PagedAndSortedResultRequestDto>,
     IAppointmentAppService
     {
-        public AppointmentAppService(IRepository<Appointment, long> repository) : base(repository)
+        public AppointmentAppService(IRepository<Appointment, Guid> repository) : base(repository)
         {
         }
     }

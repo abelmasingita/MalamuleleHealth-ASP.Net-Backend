@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.Domain
 {
-    public class Prescription : FullAuditedEntity<long>
+    public class Prescription : FullAuditedEntity<Guid>
     {
         [DisplayName("Medication")]
         public string Medication { get; set; }
@@ -23,7 +23,7 @@ namespace MalamuleleHealth.Domain
         public DateTime PrescriptionDate { get; set; }
 
         [DisplayName("Appointment")]
-        public long? AppointmentID { get; set; }
+        public Guid? AppointmentID { get; set; }
         [ForeignKey("AppointmentID")]
         public virtual Appointment Appointment { get; set; }
 

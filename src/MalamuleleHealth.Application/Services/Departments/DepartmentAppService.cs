@@ -14,10 +14,10 @@ using MalamuleleHealth.Authorization;
 namespace MalamuleleHealth.Services.Departments
 {
     [AbpAuthorize(PermissionNames.Pages_Users)]
-    public class DepartmentAppService : AsyncCrudAppService<Department, DepartmentDto, long, PagedAndSortedResultRequestDto>,
+    public class DepartmentAppService : AsyncCrudAppService<Department, DepartmentDto, Guid, PagedAndSortedResultRequestDto>,
     IPrescriptionAppService
     {
-        public DepartmentAppService(IRepository<Department, long> repository) : base(repository)
+        public DepartmentAppService(IRepository<Department, Guid> repository) : base(repository)
         {
         }
     }

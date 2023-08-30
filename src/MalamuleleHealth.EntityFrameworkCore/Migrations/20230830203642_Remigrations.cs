@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MalamuleleHealth.Migrations
 {
-    public partial class appointmentMigration : Migration
+    public partial class Remigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -445,20 +445,6 @@ namespace MalamuleleHealth.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Departments",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AbpDynamicEntityProperties",
                 columns: table => new
                 {
@@ -885,14 +871,20 @@ namespace MalamuleleHealth.Migrations
                 name: "Appointments",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppointmentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Purpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientID = table.Column<long>(type: "bigint", nullable: true),
-                    DoctorID = table.Column<long>(type: "bigint", nullable: true)
+                    DoctorID = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -910,27 +902,33 @@ namespace MalamuleleHealth.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prescriptions",
+                name: "Prescription",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Medications = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Medication = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Instructions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PrescriptionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppointmentID = table.Column<long>(type: "bigint", nullable: true),
-                    DoctorID = table.Column<long>(type: "bigint", nullable: true)
+                    AppointmentID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DoctorID = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prescriptions", x => x.Id);
+                    table.PrimaryKey("PK_Prescription", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prescriptions_AbpUserRoles_DoctorID",
+                        name: "FK_Prescription_AbpUserRoles_DoctorID",
                         column: x => x.DoctorID,
                         principalTable: "AbpUserRoles",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Prescriptions_Appointments_AppointmentID",
+                        name: "FK_Prescription_Appointments_AppointmentID",
                         column: x => x.AppointmentID,
                         principalTable: "Appointments",
                         principalColumn: "Id");
@@ -941,10 +939,11 @@ namespace MalamuleleHealth.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreationTime", "CreatorUserId", "DeleterUserId", "DeletionTime", "Description", "DisplayName", "IsDefault", "IsDeleted", "IsStatic", "LastModificationTime", "LastModifierUserId", "Name", "NormalizedName", "TenantId" },
                 values: new object[,]
                 {
-                    { 3, "74957665-e452-4ee2-98ec-a9017627ec91", new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4343), null, null, null, null, "Administrator", false, false, true, null, null, "Admin", "D24D3CC5E2184FBBBEBC83ECF867D5F1", null },
-                    { 4, "b2f05314-107e-42f9-8c7b-d2a42da63bc4", new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4378), null, null, null, null, "Doctor", false, false, true, null, null, "Doctor", "AC410A05725C464091B76EC38677425D", null },
-                    { 5, "58cf0b6f-157a-4874-97a1-67d65cdfe5c0", new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4385), null, null, null, null, "Nurse", false, false, true, null, null, "Nurse", "11512C9CBD8246578E0434CCC8498EF1", null },
-                    { 6, "9b10e873-1c86-42ff-82dc-1df2cdc2152f", new DateTime(2023, 8, 23, 14, 8, 53, 769, DateTimeKind.Local).AddTicks(4406), null, null, null, null, "Patient", false, false, true, null, null, "Patient", "282547FE1302404D9A3BBE99E3E388C3", null }
+                    { 1, "b9f9cc38-444e-4ecd-9351-be71ed72ff97", new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8796), null, null, null, null, "Doctor", false, false, true, null, null, "Doctor", "0F8132B810CD48DDAAC8E6E6FD024719", null },
+                    { 2, "4e0ec72f-f6c1-449d-bc9c-a8dc4c6d13ec", new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8835), null, null, null, null, "Nurse", false, false, true, null, null, "Nurse", "8C8363669E4B41689BA5E22A1F03DD27", null },
+                    { 3, "d20b5f99-99e4-405c-925f-1d473f7ccdb1", new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8853), null, null, null, null, "Patient", false, false, true, null, null, "Patient", "3B0A431A17AB47C88FDADF6FCE678E55", null },
+                    { 4, "118ce507-8fa8-4082-85fb-51524da650e2", new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8860), null, null, null, null, "Pharmacist", false, false, true, null, null, "Pharmacist", "3678097591A246729B254A385F565903", null },
+                    { 5, "e714851e-2c63-409d-84a0-ed8ec0d658f8", new DateTime(2023, 8, 30, 22, 36, 41, 523, DateTimeKind.Local).AddTicks(8912), null, null, null, null, "Lab Technician", false, false, true, null, null, "Lab Technician", "14C166A7061D4BF9BB5523621F26E95B", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1310,13 +1309,13 @@ namespace MalamuleleHealth.Migrations
                 column: "PatientID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prescriptions_AppointmentID",
-                table: "Prescriptions",
+                name: "IX_Prescription_AppointmentID",
+                table: "Prescription",
                 column: "AppointmentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prescriptions_DoctorID",
-                table: "Prescriptions",
+                name: "IX_Prescription_DoctorID",
+                table: "Prescription",
                 column: "DoctorID");
         }
 
@@ -1401,10 +1400,7 @@ namespace MalamuleleHealth.Migrations
                 name: "AbpWebhookSubscriptions");
 
             migrationBuilder.DropTable(
-                name: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "Prescriptions");
+                name: "Prescription");
 
             migrationBuilder.DropTable(
                 name: "AbpDynamicEntityProperties");

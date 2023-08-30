@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MalamuleleHealth.Services.Departments.Dto
 {
     [AutoMap(typeof(Department))]
-    public class DepartmentDto : AuditedEntityDto<long>
+    public class DepartmentDto : AuditedEntityDto<Guid>
     {
         public string Name { get; set; }
         public string Description { get; set; }

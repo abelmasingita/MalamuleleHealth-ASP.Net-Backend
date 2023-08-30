@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.Domain
 {
-    public class Department : FullAuditedEntity<long>
+    public class Department : FullAuditedEntity<Guid>
     {
         [Required]
         [DisplayName("Department Name")]

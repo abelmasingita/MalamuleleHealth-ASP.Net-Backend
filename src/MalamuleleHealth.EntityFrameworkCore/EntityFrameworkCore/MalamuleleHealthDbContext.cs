@@ -4,6 +4,7 @@ using MalamuleleHealth.Authorization.Roles;
 using MalamuleleHealth.Authorization.Users;
 using MalamuleleHealth.MultiTenancy;
 using MalamuleleHealth.Domain;
+using System;
 
 namespace MalamuleleHealth.EntityFrameworkCore
 {
@@ -11,11 +12,11 @@ namespace MalamuleleHealth.EntityFrameworkCore
     {
         public static class RoleNames
         {
-            public const string Staff = "Staff";
             public const string Doctor = "Doctor";
             public const string Nurse = "Nurse";
             public const string Patient = "Patient";
-            // Add more roles if needed
+            public const string Pharmacist = "Pharmacist";
+            public const string LabTechnician = "Lab Technician";
         }
 
         /* Define a DbSet for each entity of the application */
@@ -32,10 +33,11 @@ namespace MalamuleleHealth.EntityFrameworkCore
 
             // Seed roles
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = 3, Name = RoleNames.Staff, DisplayName = "Staff", IsStatic = true, IsDefault = false },
-                new Role { Id = 4, Name = RoleNames.Doctor, DisplayName = "Doctor", IsStatic = true, IsDefault = false },
-                new Role { Id = 5, Name = RoleNames.Nurse, DisplayName = "Nurse", IsStatic = true, IsDefault = false},
-                new Role { Id = 6, Name = RoleNames.Patient, DisplayName = "Patient", IsStatic = true, IsDefault = false}
+                new Role { Id = 1, Name = RoleNames.Doctor, DisplayName = "Doctor", IsStatic = true, IsDefault = false },
+                new Role { Id = 2, Name = RoleNames.Nurse, DisplayName = "Nurse", IsStatic = true, IsDefault = false },
+                new Role { Id = 3, Name = RoleNames.Patient, DisplayName = "Patient", IsStatic = true, IsDefault = false },
+                new Role { Id = 4, Name = RoleNames.Pharmacist, DisplayName = "Pharmacist", IsStatic = true, IsDefault = false },
+                new Role { Id = 5, Name = RoleNames.LabTechnician, DisplayName = "Lab Technician", IsStatic = true, IsDefault = false }
             // Add more roles as needed
             );
         }

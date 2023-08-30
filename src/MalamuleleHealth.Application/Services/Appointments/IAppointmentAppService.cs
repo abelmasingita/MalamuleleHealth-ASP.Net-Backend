@@ -9,7 +9,7 @@ using MalamuleleHealth.Services.Appointments.Dto;
 
 namespace MalamuleleHealth.Services.Appointments
 {
-    public interface IAppointmentAppService : IAsyncCrudAppService<AppointmentDto, long, PagedAndSortedResultRequestDto>
+    public interface IAppointmentAppService : IAsyncCrudAppService<AppointmentDto, Guid, PagedAndSortedResultRequestDto>
     {
 
     }
