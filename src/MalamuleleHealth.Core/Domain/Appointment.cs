@@ -25,6 +25,7 @@ namespace MalamuleleHealth.Domain
         [DisplayName("Appointment Status")]
         public string Status { get; set; }
 
+
         [DisplayName("Patient")]
         public  long? PatientID { get; set; }
         [ForeignKey("PatientID")]

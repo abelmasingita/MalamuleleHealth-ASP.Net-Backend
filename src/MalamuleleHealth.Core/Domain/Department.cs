@@ -12,11 +12,18 @@ namespace MalamuleleHealth.Domain
 {
     public class Department : FullAuditedEntity<Guid>
     {
-        [Required]
         [DisplayName("Department Name")]
         public string Name { get; set; }
 
         [DisplayName("Department Description")]
         public string Description { get; set; }
+
+        //relationships
+
+        [DisplayName("Wards")]
+        public ICollection<Ward> Wards { get; set; }
+
+        [DisplayName("Medical Tests")]
+        public ICollection<MedicalTest> MedicalTests { get; set; }
     }
 }
