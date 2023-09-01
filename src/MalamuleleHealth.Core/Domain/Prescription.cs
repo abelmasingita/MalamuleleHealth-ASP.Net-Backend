@@ -1,6 +1,7 @@
 ﻿using Abp.Authorization.Users;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using MalamuleleHealth.Authorization.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,13 +24,13 @@ namespace MalamuleleHealth.Domain
         public DateTime PrescriptionDate { get; set; }
 
         [DisplayName("Appointment")]
-        public Guid? AppointmentID { get; set; }
-        [ForeignKey("AppointmentID")]
+        public Guid? AppointmentId { get; set; }
+        [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
 
         [DisplayName("Responsible Doctor")]
-        public long? DoctorID { get; set; }
-        [ForeignKey("DoctorID")]
-        public virtual UserRole Doctor { get; set; }
+        public long? DoctorId { get; set; }
+        [ForeignKey("DoctorId")]
+        public virtual User Doctor { get; set; }
     }
 }

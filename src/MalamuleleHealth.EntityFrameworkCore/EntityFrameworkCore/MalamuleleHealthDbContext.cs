@@ -40,11 +40,20 @@ namespace MalamuleleHealth.EntityFrameworkCore
                 new Role { Id = 5, Name = RoleNames.LabTechnician, DisplayName = "Lab Technician", IsStatic = true, IsDefault = false }
             // Add more roles as needed
             );
+
         }
 
         public DbSet<Prescription> Departments { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Bed> Beds { get; set; }
+        public DbSet<Ward> Wards { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<MedicalHistory> MedicalHistories { get; set; }
+        public DbSet<MedicalTest> MedicalTests { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<TestResult> TestResults { get; set; }
 
     }
 

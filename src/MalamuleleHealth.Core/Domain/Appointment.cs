@@ -1,6 +1,7 @@
 ﻿using Abp.Authorization.Users;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using MalamuleleHealth.Authorization.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,13 +28,13 @@ namespace MalamuleleHealth.Domain
 
 
         [DisplayName("Patient")]
-        public  long? PatientID { get; set; }
-        [ForeignKey("PatientID")]
-        public virtual UserRole Patient { get; set; }
+        public  long PatientId { get; set; }
+        [ForeignKey("PatientId")]
+        public virtual User Patient { get; set; }
 
         [DisplayName("Responsible Doctor")]
-        public long? DoctorID { get; set; }
-        [ForeignKey("DoctorID")]
-        public virtual UserRole Doctor { get; set; }
+        public long DoctorId { get; set; }
+        [ForeignKey("DoctorId")]
+        public virtual User Doctor { get; set; }
     }
 }
