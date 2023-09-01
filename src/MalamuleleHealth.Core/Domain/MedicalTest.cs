@@ -16,7 +16,7 @@ namespace MalamuleleHealth.Domain
         public string TestName { get; set; }
 
         [DisplayName("Medical Test Cost")]
-        public double Cost { get; set; }
+        public decimal Cost { get; set; }
 
         //relationships
         [DisplayName("Department")]
