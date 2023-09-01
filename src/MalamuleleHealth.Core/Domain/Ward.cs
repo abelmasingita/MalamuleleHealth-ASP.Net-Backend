@@ -17,7 +17,6 @@ namespace MalamuleleHealth.Domain
 
 
         //relationships
-
         [DisplayName("Department")]
         public Guid DepartmentId { get; set; }
         public Department Departments { get; set; }
