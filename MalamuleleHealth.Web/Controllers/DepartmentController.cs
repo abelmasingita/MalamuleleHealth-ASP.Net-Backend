@@ -1,16 +1,13 @@
-﻿using MalamuleleHealth.Application.Repository.IRepository;
+﻿using DataInterface.Domain;
+using MalamuleleHealth.Application.Repository.IRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MalamuleleHealth.Application.Controllers
+namespace MalamuleleHealth.Web.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class DepartmentController : Controller  
+    public class DepartmentController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;
 
@@ -19,12 +16,68 @@ namespace MalamuleleHealth.Application.Controllers
             this.unitofWork = unitofWork;
         }
 
-        public string GetDepartments()
+        [HttpGet(Name = "GetDepartments")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Department>))]
+        public async Task<IActionResult> GetDepartments()
         {
+            var dp = unitofWork.Department.GetList().GetAwaiter().GetResult();
 
-            var departments = unitofWork.Department.GetList();
+            return Ok(dp);
+        }
 
-            return "";
+
+        [HttpGet("departmentId")]
+        [ProducesResponseType(200, Type = typeof(Department))]
+        [ProducesResponseType(400, Type = typeof(Department))]
+        [ProducesResponseType(404, Type = typeof(Department))]
+        public async Task<IActionResult> GetDepartment(Guid departmentId)
+        {
+            var dp = unitofWork.Department.Get(d => d.DepartmentId == departmentId).GetAwaiter().GetResult();   
+            if (dp == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(dp);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(200, Type = typeof(Department))]
+        [ProducesResponseType(400, Type = typeof(Department))]
+        public async Task<IActionResult> AddDepartment([FromBody] Department createDepartment)
+        {
+            if (createDepartment == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Department.Add(createDepartment);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("departmentId")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> RemoveDepartment(Guid departmentId)
+        {
+            var dp = unitofWork.Department.Get(d => d.DepartmentId == departmentId).GetAwaiter().GetResult();
+            if (dp == null)
+            {
+                return NotFound();
+            }
+
+            unitofWork.Department.Remove(dp);
+            unitofWork.Save();
+            return NoContent();
         }
     }
 }

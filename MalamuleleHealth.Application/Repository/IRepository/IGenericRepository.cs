@@ -14,5 +14,7 @@ namespace MalamuleleHealth.Application.Repository.IRepository
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(T entity);
+
+       
     }
 }

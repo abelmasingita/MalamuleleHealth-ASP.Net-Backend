@@ -25,6 +25,7 @@ namespace MalamuleleHealth.Application.Repository
         {
             _db.AddAsync(entity).GetAwaiter().GetResult();
         }
+
         public async Task<T> Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
