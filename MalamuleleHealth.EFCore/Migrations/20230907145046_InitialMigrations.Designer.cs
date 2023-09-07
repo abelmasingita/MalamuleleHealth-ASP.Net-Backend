@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalamuleleHealth.EFCore.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20230907134301_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230907145046_InitialMigrations")]
+    partial class InitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
