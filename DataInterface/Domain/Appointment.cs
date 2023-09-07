@@ -1,19 +1,19 @@
-﻿using Abp.Authorization.Users;
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
-using MalamuleleHealth.Authorization.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MalamuleleHealth.Domain
+namespace DataInterface.Domain
 {
-    public class Appointment : FullAuditedEntity<Guid>
+    public class Appointment
     {
+        
+        [DisplayName("Appointment Id")]
+        public Guid AppointmentId { get; set; } 
+
         [DisplayName("Appointment Date")]
         public DateTime AppointmentDate { get; set; }
 
@@ -27,7 +27,7 @@ namespace MalamuleleHealth.Domain
         public string Status { get; set; }
 
 
-        //relations
+        /*//relations
         [DisplayName("Patient")]
         [ForeignKey(nameof(DoctorId))]
         public User Doctor { get; set; }
@@ -36,6 +36,6 @@ namespace MalamuleleHealth.Domain
         [DisplayName("Doctor")]
         [ForeignKey(nameof(PatientId))]
         public User Patient { get; set; }
-        public long PatientId { get; set; }
+        public long PatientId { get; set; }*/
     }
 }

@@ -33,7 +33,7 @@ namespace MalamuleleHealth.Authorization.Users
         }
 
 
-        //extending user
+        /*//extending user
 
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
@@ -41,6 +41,6 @@ namespace MalamuleleHealth.Authorization.Users
         public virtual ICollection<TestResult> TestResults { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
-        public virtual ICollection<MedicalHistory> MedicalHistories { get; set; }
+        public virtual ICollection<MedicalHistory> MedicalHistories { get; set; }*/
     }
 }

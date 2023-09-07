@@ -1,19 +1,19 @@
-﻿using Abp.Authorization.Users;
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
-using MalamuleleHealth.Authorization.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MalamuleleHealth.Domain
+namespace DataInterface.Domain
 {
-    public class Prescription : FullAuditedEntity<Guid>
+    public class Prescription
     {
+        //[Required]
+        [DisplayName("Prescription Id")]
+        public Guid PrescriptionId { get; set; }
+
         [DisplayName("Medication")]
         public string Medication { get; set; }
 
@@ -23,7 +23,7 @@ namespace MalamuleleHealth.Domain
         [DisplayName("Prescription Date")]
         public DateTime PrescriptionDate { get; set; }
 
-        [DisplayName("Appointment")]
+        /*[DisplayName("Appointment")]
         public Guid? AppointmentId { get; set; }
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
@@ -32,8 +32,8 @@ namespace MalamuleleHealth.Domain
         public User Doctor { get; set; }
         public long DoctorId { get; set; }
 
-      /*  [ForeignKey(nameof(PatientId))]
-        public User Patient { get; set; }
-        public long PatientId { get; set; }*/
+        /*  [ForeignKey(nameof(PatientId))]
+          public User Patient { get; set; }
+          public long PatientId { get; set; }*/
     }
 }

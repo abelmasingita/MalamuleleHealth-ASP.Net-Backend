@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30709.64
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}"
 EndProject
@@ -20,6 +20,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalamuleleHealth.Web.Core", "src\MalamuleleHealth.Web.Core\MalamuleleHealth.Web.Core.csproj", "{22CFE0D2-8DCA-42D7-AD7D-784C3862493F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalamuleleHealth.EntityFrameworkCore", "src\MalamuleleHealth.EntityFrameworkCore\MalamuleleHealth.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V2", "V2", "{2BC10C89-EE1A-4798-9DE9-FF82678C9FEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalamuleleHealth.Web", "MalamuleleHealth.Web\MalamuleleHealth.Web.csproj", "{86411CD2-00A5-423D-9409-7262DB64882E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataInterface", "DataInterface\DataInterface.csproj", "{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalamuleleHealth.EFCore", "MalamuleleHealth.EFCore\MalamuleleHealth.EFCore.csproj", "{9A7A3547-FE82-43DB-B436-92E298E22AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +63,18 @@ Global
 		{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86411CD2-00A5-423D-9409-7262DB64882E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86411CD2-00A5-423D-9409-7262DB64882E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86411CD2-00A5-423D-9409-7262DB64882E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86411CD2-00A5-423D-9409-7262DB64882E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7A3547-FE82-43DB-B436-92E298E22AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7A3547-FE82-43DB-B436-92E298E22AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7A3547-FE82-43DB-B436-92E298E22AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7A3547-FE82-43DB-B436-92E298E22AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +87,10 @@ Global
 		{38E184BD-E874-4633-A947-AED4FDB73F40} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{22CFE0D2-8DCA-42D7-AD7D-784C3862493F} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
+		{2BC10C89-EE1A-4798-9DE9-FF82678C9FEF} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
+		{86411CD2-00A5-423D-9409-7262DB64882E} = {2BC10C89-EE1A-4798-9DE9-FF82678C9FEF}
+		{E686FF55-EED4-4D0E-8814-CDCEEBD2ADCF} = {2BC10C89-EE1A-4798-9DE9-FF82678C9FEF}
+		{9A7A3547-FE82-43DB-B436-92E298E22AA7} = {2BC10C89-EE1A-4798-9DE9-FF82678C9FEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A55C749-0BFF-4EFD-8499-12A2CB3B5B07}
