@@ -64,10 +64,10 @@ namespace MalamuleleHealth.Web.Controllers
 
 
 
-        [HttpPut]
+        [HttpPut("departmentId")]
         [ProducesResponseType(200, Type = typeof(Department))]
         [ProducesResponseType(400, Type = typeof(Department))]
-        public async Task<IActionResult> UpdateDepartment([FromBody] Department department)
+        public async Task<IActionResult> UpdateDepartment(Guid departmentId, [FromBody] Department department)
         {
             if (department == null)
             {
@@ -79,8 +79,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Department.Update(department);
-            unitofWork.Save();
+            if (GetDepartment(departmentId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Department.Update(department);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

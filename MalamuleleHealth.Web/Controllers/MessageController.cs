@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("messageId")]
         [ProducesResponseType(200, Type = typeof(Message))]
         [ProducesResponseType(400, Type = typeof(Message))]
-        public async Task<IActionResult> UpdateMessage([FromBody] Message message)
+        public async Task<IActionResult> UpdateMessage(Guid messageId,[FromBody] Message message)
         {
             if (message == null)
             {
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Message.Update(message);
-            unitofWork.Save();
+            if (GetMessage(messageId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Message.Update(message);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

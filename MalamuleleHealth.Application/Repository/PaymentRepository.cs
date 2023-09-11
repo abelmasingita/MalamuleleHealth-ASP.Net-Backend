@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Payment payment)
         {
-            throw new NotImplementedException();
+            var p = dbContext.Payments.FirstAsync(a => a.PaymentId == payment.PaymentId).GetAwaiter().GetResult();
+
+            if (p != null)
+            {
+                p.Amount = payment.Amount;
+                p.PaymentDate = payment.PaymentDate;
+            }
         }
     }
 }

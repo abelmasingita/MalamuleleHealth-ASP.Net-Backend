@@ -63,14 +63,14 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("appointmentId")]
         [ProducesResponseType(200, Type = typeof(Appointment))]
         [ProducesResponseType(400, Type = typeof(Appointment))]
-        public async Task<IActionResult> UpdateAppointment([FromBody] Appointment appointment)
+        public async Task<IActionResult> UpdateAppointment(Guid appointmentId, [FromBody] Appointment appointment)
         {
             if (appointment == null)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Appointment.Update(appointment);
-            unitofWork.Save();
+            if(GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Appointment.Update(appointment);
+                unitofWork.Save();
+
+            }else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

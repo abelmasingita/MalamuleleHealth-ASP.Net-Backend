@@ -26,13 +26,13 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpGet("medcialTestId")]
+        [HttpGet("medicalTestId")]
         [ProducesResponseType(200, Type = typeof(MedicalTest))]
         [ProducesResponseType(400, Type = typeof(MedicalTest))]
         [ProducesResponseType(404, Type = typeof(MedicalTest))]
-        public async Task<IActionResult> GetDepartment(Guid medcialTestId)
+        public async Task<IActionResult> GetMedicalTest(Guid medicalTestId)
         {
-            var mt = unitofWork.MedicalTest.Get(d => d.MedicalTestId == medcialTestId).GetAwaiter().GetResult();   
+            var mt = unitofWork.MedicalTest.Get(d => d.MedicalTestId == medicalTestId).GetAwaiter().GetResult();   
             if (mt == null)
             {
                 return NotFound();
@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("medicalTestId")]
         [ProducesResponseType(200, Type = typeof(MedicalTest))]
         [ProducesResponseType(400, Type = typeof(MedicalTest))]
-        public async Task<IActionResult> UpdateMedicalTest([FromBody] MedicalTest medicalTest)
+        public async Task<IActionResult> UpdateMedicalTest(Guid medicalTestId, [FromBody] MedicalTest medicalTest)
         {
             if (medicalTest == null)
             {
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.MedicalTest.Update(medicalTest);
-            unitofWork.Save();
+            if (GetMedicalTest(medicalTestId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.MedicalTest.Update(medicalTest);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

@@ -18,7 +18,7 @@ namespace MalamuleleHealth.Web.Controllers
 
         [HttpGet(Name = "GetTestResults")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<TestResult>))]
-        public async Task<IActionResult> GetDepartments()
+        public async Task<IActionResult> GetTestResults()
         {
             var dp = unitofWork.Department.GetList().GetAwaiter().GetResult();
 
@@ -30,7 +30,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(200, Type = typeof(TestResult))]
         [ProducesResponseType(400, Type = typeof(TestResult))]
         [ProducesResponseType(404, Type = typeof(TestResult))]
-        public async Task<IActionResult> GetDepartment(Guid testResultId)
+        public async Task<IActionResult> GetTestResult(Guid testResultId)
         {
             var tr = unitofWork.TestResult.Get(d => d.TestResultId == testResultId).GetAwaiter().GetResult();   
             if (tr == null)
@@ -62,10 +62,10 @@ namespace MalamuleleHealth.Web.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("testResultId")]
         [ProducesResponseType(200, Type = typeof(TestResult))]
         [ProducesResponseType(400, Type = typeof(TestResult))]
-        public async Task<IActionResult> UpdateTestResult([FromBody] TestResult testResult)
+        public async Task<IActionResult> UpdateTestResult(Guid testResultId,[FromBody] TestResult testResult)
         {
             if (testResult == null)
             {
@@ -77,8 +77,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.TestResult.Update(testResult);
-            unitofWork.Save();
+            if (GetTestResult(testResultId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.TestResult.Update(testResult);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

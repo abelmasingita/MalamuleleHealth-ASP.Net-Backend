@@ -62,10 +62,10 @@ namespace MalamuleleHealth.Web.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("bedId")]
         [ProducesResponseType(200, Type = typeof(Bed))]
         [ProducesResponseType(400, Type = typeof(Bed))]
-        public async Task<IActionResult> UpdateBed([FromBody] Bed bed)
+        public async Task<IActionResult> UpdateBed(Guid bedId ,[FromBody] Bed bed)
         {
             if (bed == null)
             {
@@ -77,8 +77,16 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Bed.Update(bed);
-            unitofWork.Save();
+            if (GetBed(bedId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Bed.Update(bed);
+                unitofWork.Save();
+
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

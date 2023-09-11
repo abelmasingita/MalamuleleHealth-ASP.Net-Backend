@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("wardId")]
         [ProducesResponseType(200, Type = typeof(Ward))]
         [ProducesResponseType(400, Type = typeof(Ward))]
-        public async Task<IActionResult> UpdateWard([FromBody] Ward ward)
+        public async Task<IActionResult> UpdateWard(Guid wardId,[FromBody] Ward ward)
         {
             if (ward == null)
             {
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Ward.Update(ward);
-            unitofWork.Save();
+            if (GetWard(wardId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Ward.Update(ward);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

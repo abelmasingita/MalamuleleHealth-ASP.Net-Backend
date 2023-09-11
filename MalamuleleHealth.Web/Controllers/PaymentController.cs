@@ -30,7 +30,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Payment))]
         [ProducesResponseType(400, Type = typeof(Payment))]
         [ProducesResponseType(404, Type = typeof(Payment))]
-        public async Task<IActionResult> GetDepartment(Guid paymentId)
+        public async Task<IActionResult> GetPayment(Guid paymentId)
         {
             var payment = unitofWork.Payment.Get(d => d.PaymentId == paymentId).GetAwaiter().GetResult();   
             if (payment == null)
@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("paymentId")]
         [ProducesResponseType(200, Type = typeof(Payment))]
         [ProducesResponseType(400, Type = typeof(Payment))]
-        public async Task<IActionResult> UpdatePayment([FromBody] Payment payment)
+        public async Task<IActionResult> UpdatePayment(Guid paymentId,[FromBody] Payment payment)
         {
             if (payment == null)
             {
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Payment.Update(payment);
-            unitofWork.Save();
+            if (GetPayment(paymentId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Payment.Update(payment);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

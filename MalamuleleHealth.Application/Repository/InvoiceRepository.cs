@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,14 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Invoice invoice)
         {
-            throw new NotImplementedException();
+            var inv = dbContext.Invoices.FirstAsync(i => i.InvoiceId == invoice.InvoiceId).GetAwaiter().GetResult();
+
+            if (inv != null)
+            {
+                inv.Status = invoice.Status;
+                inv.DueDate = invoice.DueDate;
+                inv.TotalAmount = invoice.TotalAmount;
+            }
         }
     }
 }

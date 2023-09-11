@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,12 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Ward ward)
         {
-            throw new NotImplementedException();
+            var w = dbContext.Wards.FirstAsync(a => a.WardId == ward.WardId).GetAwaiter().GetResult();
+
+            if (w != null)
+            {
+                w.Name = ward.Name;
+            }
         }
     }
 }

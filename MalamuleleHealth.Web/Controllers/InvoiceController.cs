@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("invoiceId")]
         [ProducesResponseType(200, Type = typeof(Invoice))]
         [ProducesResponseType(400, Type = typeof(Invoice))]
-        public async Task<IActionResult> UpdateInvoice([FromBody] Invoice invoice)
+        public async Task<IActionResult> UpdateInvoice(Guid invoiceId , [FromBody] Invoice invoice)
         {
             if (invoice == null)
             {
@@ -78,8 +78,16 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Invoice.Update(invoice);
-            unitofWork.Save();
+            if (GetInvoice(invoiceId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Invoice.Update(invoice);
+                unitofWork.Save();
+
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

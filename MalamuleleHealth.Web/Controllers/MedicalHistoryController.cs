@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("medicalHistoryId")]
         [ProducesResponseType(200, Type = typeof(MedicalHistory))]
         [ProducesResponseType(400, Type = typeof(MedicalHistory))]
-        public async Task<IActionResult> UpdateMedicalHistory([FromBody] MedicalHistory md)
+        public async Task<IActionResult> UpdateMedicalHistory(Guid medicalHistoryId , [FromBody] MedicalHistory md)
         {
             if (md == null)
             {
@@ -78,8 +78,16 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.MedicalHistory.Update(md);
-            unitofWork.Save();
+            if (GetMedicalHistory(medicalHistoryId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.MedicalHistory.Update(md);
+                unitofWork.Save();
+
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

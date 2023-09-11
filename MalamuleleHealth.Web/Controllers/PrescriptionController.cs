@@ -63,10 +63,10 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("prescriptionId")]
         [ProducesResponseType(200, Type = typeof(Prescription))]
         [ProducesResponseType(400, Type = typeof(Prescription))]
-        public async Task<IActionResult> UpdatePrescription([FromBody] Prescription prescription)
+        public async Task<IActionResult> UpdatePrescription(Guid prescriptionId,[FromBody] Prescription prescription)
         {
             if (prescription == null)
             {
@@ -78,8 +78,15 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Prescription.Update(prescription);
-            unitofWork.Save();
+            if (GetPrescription(prescriptionId).GetAwaiter().GetResult() != null)
+            {
+                unitofWork.Prescription.Update(prescription);
+                unitofWork.Save();
+            }
+            else
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,14 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Prescription prescription)
         {
-            throw new NotImplementedException();
+            var p = dbContext.Prescriptions.FirstAsync(a => a.PrescriptionId == prescription.PrescriptionId).GetAwaiter().GetResult();
+
+            if (p != null)
+            {
+                p.Instructions = prescription.Instructions;
+                p.Medication = prescription.Medication;
+                p.PrescriptionDate = prescription.PrescriptionDate;
+            }
         }
     }
 }

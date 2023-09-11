@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,14 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(MedicalHistory medicalHistory)
         {
-            throw new NotImplementedException();
+            var md = dbContext.MedicalHistories.FirstAsync(a => a.MedicalHistoryId == medicalHistory.MedicalHistoryId).GetAwaiter().GetResult();
+
+            if (md != null)
+            {
+                md.Treatment = medicalHistory.Treatment;
+                md.DiagnosisDate = medicalHistory.DiagnosisDate;
+                md.MedicalCondition = medicalHistory.MedicalCondition;
+            }
         }
     }
 }

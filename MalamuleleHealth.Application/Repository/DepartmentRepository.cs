@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Department department)
         {
-            throw new NotImplementedException();
+            var dp = dbContext.Departments.FirstAsync(d => d.DepartmentId == department.DepartmentId).GetAwaiter().GetResult();
+
+            if (dp != null)
+            {
+                dp.Name = department.Name;
+                dp.Description = department.Description;    
+            }
         }
     }
 }
