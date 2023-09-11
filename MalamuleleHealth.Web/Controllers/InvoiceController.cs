@@ -63,6 +63,28 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Invoice))]
+        [ProducesResponseType(400, Type = typeof(Invoice))]
+        public async Task<IActionResult> UpdateInvoice([FromBody] Invoice invoice)
+        {
+            if (invoice == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Invoice.Update(invoice);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("invoiceId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

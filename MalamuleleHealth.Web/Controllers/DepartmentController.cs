@@ -63,6 +63,29 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Department))]
+        [ProducesResponseType(400, Type = typeof(Department))]
+        public async Task<IActionResult> UpdateDepartment([FromBody] Department department)
+        {
+            if (department == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Department.Update(department);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("departmentId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

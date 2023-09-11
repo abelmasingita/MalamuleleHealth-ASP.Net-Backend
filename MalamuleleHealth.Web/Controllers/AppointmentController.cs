@@ -63,6 +63,28 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Appointment))]
+        [ProducesResponseType(400, Type = typeof(Appointment))]
+        public async Task<IActionResult> UpdateAppointment([FromBody] Appointment appointment)
+        {
+            if (appointment == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Appointment.Update(appointment);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("appointmentId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

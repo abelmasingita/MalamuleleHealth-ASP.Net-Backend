@@ -30,7 +30,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(200, Type = typeof(Prescription))]
         [ProducesResponseType(400, Type = typeof(Prescription))]
         [ProducesResponseType(404, Type = typeof(Prescription))]
-        public async Task<IActionResult> GetDepartment(Guid prescriptionId)
+        public async Task<IActionResult> GetPrescription(Guid prescriptionId)
         {
             var prescription = unitofWork.Prescription.Get(d => d.PrescriptionId == prescriptionId).GetAwaiter().GetResult();   
             if (prescription == null)
@@ -44,7 +44,7 @@ namespace MalamuleleHealth.Web.Controllers
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(Prescription))]
         [ProducesResponseType(400, Type = typeof(Prescription))]
-        public async Task<IActionResult> AddDepartment([FromBody] Prescription prescription)
+        public async Task<IActionResult> AddPrescription([FromBody] Prescription prescription)
         {
             if (prescription == null)
             {
@@ -63,11 +63,33 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPost]
+        [ProducesResponseType(200, Type = typeof(Prescription))]
+        [ProducesResponseType(400, Type = typeof(Prescription))]
+        public async Task<IActionResult> UpdatePrescription([FromBody] Prescription prescription)
+        {
+            if (prescription == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Prescription.Update(prescription);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("prescriptionId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> RemoveDepartment(Guid prescriptionId)
+        public async Task<IActionResult> RemovePrescription(Guid prescriptionId)
         {
             var prescrption = unitofWork.Prescription.Get(d => d.PrescriptionId == prescriptionId).GetAwaiter().GetResult();
             if (prescrption == null)

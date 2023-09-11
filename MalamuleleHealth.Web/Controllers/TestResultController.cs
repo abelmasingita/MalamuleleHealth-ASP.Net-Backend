@@ -62,12 +62,33 @@ namespace MalamuleleHealth.Web.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(TestResult))]
+        [ProducesResponseType(400, Type = typeof(TestResult))]
+        public async Task<IActionResult> UpdateTestResult([FromBody] TestResult testResult)
+        {
+            if (testResult == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.TestResult.Update(testResult);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
 
         [HttpDelete("testResultId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> RemoveDepartment(Guid testResultId)
+        public async Task<IActionResult> RemoveTestResult(Guid testResultId)
         {
             var testResult = unitofWork.TestResult.Get(d => d.TestResultId == testResultId).GetAwaiter().GetResult();
             if (testResult == null)

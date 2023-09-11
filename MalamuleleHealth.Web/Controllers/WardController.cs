@@ -63,6 +63,28 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Ward))]
+        [ProducesResponseType(400, Type = typeof(Ward))]
+        public async Task<IActionResult> UpdateWard([FromBody] Ward ward)
+        {
+            if (ward == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Ward.Update(ward);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("wardId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

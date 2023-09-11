@@ -62,6 +62,27 @@ namespace MalamuleleHealth.Web.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Bed))]
+        [ProducesResponseType(400, Type = typeof(Bed))]
+        public async Task<IActionResult> UpdateBed([FromBody] Bed bed)
+        {
+            if (bed == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Bed.Update(bed);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
 
         [HttpDelete("bedId")]
         [ProducesResponseType(204)]

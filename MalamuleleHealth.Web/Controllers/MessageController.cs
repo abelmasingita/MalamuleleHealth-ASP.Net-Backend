@@ -63,6 +63,28 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Message))]
+        [ProducesResponseType(400, Type = typeof(Message))]
+        public async Task<IActionResult> UpdateMessage([FromBody] Message message)
+        {
+            if (message == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Message.Update(message);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
         [HttpDelete("messageId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

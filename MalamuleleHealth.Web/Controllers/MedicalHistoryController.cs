@@ -63,6 +63,29 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(MedicalHistory))]
+        [ProducesResponseType(400, Type = typeof(MedicalHistory))]
+        public async Task<IActionResult> UpdateMedicalHistory([FromBody] MedicalHistory md)
+        {
+            if (md == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.MedicalHistory.Update(md);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
+
         [HttpDelete("medicalHistoryId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

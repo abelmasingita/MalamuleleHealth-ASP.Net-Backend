@@ -63,6 +63,29 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(Payment))]
+        [ProducesResponseType(400, Type = typeof(Payment))]
+        public async Task<IActionResult> UpdatePayment([FromBody] Payment payment)
+        {
+            if (payment == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            unitofWork.Payment.Update(payment);
+            unitofWork.Save();
+
+            return NoContent();
+        }
+
+
+
         [HttpDelete("paymentId")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
