@@ -1,6 +1,7 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Bed bed)
         {
-            throw new NotImplementedException();
+            var bedDb = dbContext.Beds.FirstAsync(a => a.BedId == bed.BedId).GetAwaiter().GetResult();
+
+            if (bedDb != null)
+            {
+                bedDb.Availability = bed.Availability;
+                bedDb.Number = bed.Number;
+            }
         }
     }
 }
