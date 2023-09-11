@@ -22,10 +22,10 @@ namespace DataInterface.Domain
         public bool Availability { get; set; }
 
 
-        /*//relationships
+        //relationships
 
         [DisplayName("Ward")]
         public Guid WardId { get; set; }
-        public Ward Wards { get; set; }*/
+        public Ward Wards { get; set; }
     }
 }

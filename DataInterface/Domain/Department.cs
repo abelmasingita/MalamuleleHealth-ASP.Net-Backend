@@ -17,12 +17,12 @@ namespace DataInterface.Domain
         [DisplayName("Department Description")]
         public string Description { get; set; }
 
-        /*//relationships
+        //relationships
 
         [DisplayName("Wards")]
         public ICollection<Ward> Wards { get; set; }
 
         [DisplayName("Medical Tests")]
-        public ICollection<MedicalTest> MedicalTests { get; set; }*/
+        public ICollection<MedicalTest> MedicalTests { get; set; }
     }
 }

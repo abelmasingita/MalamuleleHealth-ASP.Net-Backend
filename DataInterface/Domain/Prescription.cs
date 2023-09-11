@@ -23,17 +23,19 @@ namespace DataInterface.Domain
         [DisplayName("Prescription Date")]
         public DateTime PrescriptionDate { get; set; }
 
-        /*[DisplayName("Appointment")]
+
+        //relationships
+        [DisplayName("Appointment")]
         public Guid? AppointmentId { get; set; }
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
 
-        [ForeignKey(nameof(DoctorId))]
+        /*[ForeignKey(nameof(DoctorId))]
         public User Doctor { get; set; }
         public long DoctorId { get; set; }
 
-        /*  [ForeignKey(nameof(PatientId))]
-          public User Patient { get; set; }
-          public long PatientId { get; set; }*/
+        [ForeignKey(nameof(PatientId))]
+        public User Patient { get; set; }
+        public long PatientId { get; set; }*/
     }
 }

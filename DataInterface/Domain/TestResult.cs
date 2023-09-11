@@ -20,12 +20,12 @@ namespace DataInterface.Domain
         [DisplayName("Result Details")]
         public string ResultDetails { get; set; }
 
-        /*//relationships
+        //relationships
         [DisplayName("Medical Test")]
         public Guid MedicalTestId { get; set; }
         public MedicalTest MedicalTests { get; set; }
 
-        public long PatientId { get; set; }
+        /*public long PatientId { get; set; }
         [ForeignKey("PatientId")]
         public virtual User Patient { get; set; }*/
     }

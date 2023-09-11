@@ -22,10 +22,9 @@ namespace DataInterface.Domain
         public float Cost { get; set; }
 
         //relationships
-       /* [DisplayName("Department")]
+        [DisplayName("Department")]
         public Guid DepartmentId { get; set; }
         public Department Departments { get; set; }
-
-        public ICollection<TestResult> TestResults { get; set; }*/
+        public ICollection<TestResult> TestResults { get; set; }
     }
 }
