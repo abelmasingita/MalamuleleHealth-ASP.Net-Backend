@@ -4,6 +4,7 @@ using MalamuleleHealth.EFCore;
 using Microsoft.EntityFrameworkCore;
 using MalamuleleHealth.EFCore.Application;
 using Microsoft.AspNetCore.Identity;
+using MalamuleleHealth.Web.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+{
+    opt.Password.RequiredLength = 7;
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireUppercase = false;
+    opt.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<ApplicationDBContext>();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitofWork, UnitOfWork>();
 
