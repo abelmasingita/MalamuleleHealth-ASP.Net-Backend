@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MalamuleleHealth.EFCore.Application;
+using MalamuleleHealth.Web.Configurations.Dto;
 
 namespace MalamuleleHealth.Web.Configurations
 {
@@ -10,6 +11,8 @@ namespace MalamuleleHealth.Web.Configurations
         {
             CreateMap<Registration, ApplicationUser>()
           .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+
+            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
         }
 
     }
