@@ -2,6 +2,8 @@ using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.Application.Repository;
 using MalamuleleHealth.EFCore;
 using Microsoft.EntityFrameworkCore;
+using MalamuleleHealth.EFCore.Application;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDBContext>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitofWork, UnitOfWork>();

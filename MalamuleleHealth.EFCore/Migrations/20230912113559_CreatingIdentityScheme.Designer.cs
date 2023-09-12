@@ -4,6 +4,7 @@ using MalamuleleHealth.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalamuleleHealth.EFCore.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230912113559_CreatingIdentityScheme")]
+    partial class CreatingIdentityScheme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,17 +51,17 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            AppointmentId = new Guid("4f644f42-bfdc-410c-9b6a-52c37a4866d8"),
+                            AppointmentId = new Guid("f93c9c96-8b35-485a-8133-dc7ecd3706c0"),
                             AppointmentDate = new DateTime(2023, 9, 12, 0, 0, 0, 0, DateTimeKind.Local),
-                            AppointmentTime = new DateTime(2023, 9, 12, 13, 42, 15, 12, DateTimeKind.Local).AddTicks(2384),
+                            AppointmentTime = new DateTime(2023, 9, 12, 13, 35, 56, 978, DateTimeKind.Local).AddTicks(1122),
                             Purpose = "Regular checkup",
                             Status = "Scheduled"
                         },
                         new
                         {
-                            AppointmentId = new Guid("d3d0186e-0d4d-4d88-b379-b2c2173ed217"),
+                            AppointmentId = new Guid("fca8956c-51cb-4dda-8cef-8af45cfff23d"),
                             AppointmentDate = new DateTime(2023, 9, 12, 0, 0, 0, 0, DateTimeKind.Local),
-                            AppointmentTime = new DateTime(2023, 9, 12, 13, 42, 15, 12, DateTimeKind.Local).AddTicks(2386),
+                            AppointmentTime = new DateTime(2023, 9, 12, 13, 35, 56, 978, DateTimeKind.Local).AddTicks(1125),
                             Purpose = "Follow-up",
                             Status = "Scheduled"
                         });
@@ -89,17 +91,17 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            BedId = new Guid("ba2922a3-31ed-4516-ab13-6bf2527ae342"),
+                            BedId = new Guid("85c88fe7-4d6a-4425-bbfb-0d23de2cb1e9"),
                             Availability = true,
                             Number = 101,
-                            WardId = new Guid("29bcf8e5-e9d3-4449-9d93-cd37d9b653e4")
+                            WardId = new Guid("127d9a5e-de40-4221-89ae-ec03d05d33f1")
                         },
                         new
                         {
-                            BedId = new Guid("4fc8947a-09f4-441a-91f0-f6a42cb079b4"),
+                            BedId = new Guid("eb64cfbf-8b4b-43dd-8eb5-ee019feada5c"),
                             Availability = false,
                             Number = 102,
-                            WardId = new Guid("8a254245-38e9-43c8-ab3b-2124d6e2d8ad")
+                            WardId = new Guid("c36a4447-fe32-4730-9e46-8dcd62647fa0")
                         });
                 });
 
@@ -124,13 +126,13 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            DepartmentId = new Guid("3ed8177e-a277-434f-9fe3-dc831ee38840"),
+                            DepartmentId = new Guid("a7ecc9c2-3555-4495-81f4-76cc4be0fbf9"),
                             Description = "Heart-related issues",
                             Name = "Cardiology"
                         },
                         new
                         {
-                            DepartmentId = new Guid("bbe82890-ed9d-4472-a1c7-00bbf3290f54"),
+                            DepartmentId = new Guid("1a3ad739-ee7c-416c-bc17-0d1cc8061e5f"),
                             Description = "Musculoskeletal disorders",
                             Name = "Orthopedics"
                         });
@@ -159,14 +161,14 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            InvoiceId = new Guid("3acf8ea9-e299-4c20-adf9-c60512b627f1"),
+                            InvoiceId = new Guid("bed6edd0-f404-46b7-abc3-aeafd1cfd4df"),
                             DueDate = new DateTime(2023, 10, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "Pending",
                             TotalAmount = 250.5f
                         },
                         new
                         {
-                            InvoiceId = new Guid("15c49e84-194f-423d-b49b-258d340cfbb2"),
+                            InvoiceId = new Guid("1e0b9dad-4afc-4edd-a203-f03dbad262a3"),
                             DueDate = new DateTime(2023, 9, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "Paid",
                             TotalAmount = 150.25f
@@ -197,14 +199,14 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            MedicalHistoryId = new Guid("8ccef679-2b4a-4f4f-a56b-bfbbaf6561e4"),
+                            MedicalHistoryId = new Guid("109cfc6a-766f-4538-96f5-ffb67011e54e"),
                             DiagnosisDate = new DateTime(2023, 3, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             MedicalCondition = "Hypertension",
                             Treatment = "Medication and lifestyle changes"
                         },
                         new
                         {
-                            MedicalHistoryId = new Guid("74b65123-534f-4ef8-92e5-2b3707169b10"),
+                            MedicalHistoryId = new Guid("467f8328-7a21-4f7b-b058-cad28ae4d135"),
                             DiagnosisDate = new DateTime(2022, 9, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             MedicalCondition = "Diabetes",
                             Treatment = "Insulin therapy"
@@ -236,16 +238,16 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            MedicalTestId = new Guid("31f37125-2889-4834-bbb3-ce99c45b20a4"),
+                            MedicalTestId = new Guid("98eb4918-e379-479f-bd00-a11647121045"),
                             Cost = 45f,
-                            DepartmentId = new Guid("3ed8177e-a277-434f-9fe3-dc831ee38840"),
+                            DepartmentId = new Guid("a7ecc9c2-3555-4495-81f4-76cc4be0fbf9"),
                             TestName = "Blood Pressure"
                         },
                         new
                         {
-                            MedicalTestId = new Guid("67ef5efa-2e83-47ae-96d1-0d05b1250b6c"),
+                            MedicalTestId = new Guid("53a4f1f6-87c0-49e7-9f2f-430d20bf4846"),
                             Cost = 120.5f,
-                            DepartmentId = new Guid("bbe82890-ed9d-4472-a1c7-00bbf3290f54"),
+                            DepartmentId = new Guid("1a3ad739-ee7c-416c-bc17-0d1cc8061e5f"),
                             TestName = "X-Ray"
                         });
                 });
@@ -277,17 +279,17 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            MessageId = new Guid("52fd11c3-d83d-46b7-a135-3f8df4ef0973"),
+                            MessageId = new Guid("2f465263-a5fd-41fb-8ef5-7ad4b9cd7561"),
                             AppointmentDate = new DateTime(2023, 9, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            AppointmentTime = new DateTime(2023, 9, 12, 13, 42, 15, 12, DateTimeKind.Local).AddTicks(2558),
+                            AppointmentTime = new DateTime(2023, 9, 12, 13, 35, 56, 978, DateTimeKind.Local).AddTicks(1528),
                             Purpose = "Appointment Reminder",
                             Status = "Sent"
                         },
                         new
                         {
-                            MessageId = new Guid("a1d78578-f173-4325-8a00-2da289a01691"),
+                            MessageId = new Guid("0a4b4ee5-e5f4-44b8-b985-2bd25ee5f113"),
                             AppointmentDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Local),
-                            AppointmentTime = new DateTime(2023, 9, 12, 13, 42, 15, 12, DateTimeKind.Local).AddTicks(2561),
+                            AppointmentTime = new DateTime(2023, 9, 12, 13, 35, 56, 978, DateTimeKind.Local).AddTicks(1532),
                             Purpose = "Appointment Confirmation",
                             Status = "Sent"
                         });
@@ -312,13 +314,13 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            PaymentId = new Guid("1f849fef-5dea-441c-89dd-0776b0a9820e"),
+                            PaymentId = new Guid("bee3252c-4181-4c3d-9476-ef0cf2d47ecd"),
                             Amount = 75f,
                             PaymentDate = new DateTime(2023, 8, 28, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
-                            PaymentId = new Guid("f4c2d548-043c-4edd-87e7-4cce14959c87"),
+                            PaymentId = new Guid("0bec4e95-534f-4f94-b703-c41f5b0cc55d"),
                             Amount = 100.25f,
                             PaymentDate = new DateTime(2023, 8, 13, 0, 0, 0, 0, DateTimeKind.Local)
                         });
@@ -354,16 +356,16 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            PrescriptionId = new Guid("ef48bb34-ed89-410f-820d-f771f63acfa8"),
-                            AppointmentId = new Guid("4f644f42-bfdc-410c-9b6a-52c37a4866d8"),
+                            PrescriptionId = new Guid("ce40bfb5-2087-4ad6-afe9-5f1f8d57898e"),
+                            AppointmentId = new Guid("f93c9c96-8b35-485a-8133-dc7ecd3706c0"),
                             Instructions = "Take one tablet daily",
                             Medication = "Aspirin",
                             PrescriptionDate = new DateTime(2023, 9, 2, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
-                            PrescriptionId = new Guid("a8b8af17-2338-4bea-9815-2861d02858f7"),
-                            AppointmentId = new Guid("d3d0186e-0d4d-4d88-b379-b2c2173ed217"),
+                            PrescriptionId = new Guid("ee3573bb-e323-4f77-9dae-7cb2fd9bac0f"),
+                            AppointmentId = new Guid("fca8956c-51cb-4dda-8cef-8af45cfff23d"),
                             Instructions = "Take as needed for pain",
                             Medication = "Ibuprofen",
                             PrescriptionDate = new DateTime(2023, 9, 7, 0, 0, 0, 0, DateTimeKind.Local)
@@ -395,15 +397,15 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            TestResultId = new Guid("b6aaf5c0-83d8-4dbd-853e-9d704bd6d12e"),
-                            MedicalTestId = new Guid("31f37125-2889-4834-bbb3-ce99c45b20a4"),
+                            TestResultId = new Guid("e10efd31-a1df-4303-b411-dd82f2843358"),
+                            MedicalTestId = new Guid("98eb4918-e379-479f-bd00-a11647121045"),
                             ResultDetails = "Normal blood pressure reading",
                             TestDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
-                            TestResultId = new Guid("b7d57c20-3d49-4d0a-b7cd-6b5dd234b53c"),
-                            MedicalTestId = new Guid("67ef5efa-2e83-47ae-96d1-0d05b1250b6c"),
+                            TestResultId = new Guid("fe1300d0-72b4-4fac-839c-3d0e010ac7fe"),
+                            MedicalTestId = new Guid("53a4f1f6-87c0-49e7-9f2f-430d20bf4846"),
                             ResultDetails = "No fractures detected",
                             TestDate = new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Local)
                         });
@@ -431,12 +433,12 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            WardId = new Guid("29bcf8e5-e9d3-4449-9d93-cd37d9b653e4"),
+                            WardId = new Guid("127d9a5e-de40-4221-89ae-ec03d05d33f1"),
                             Name = "General Ward"
                         },
                         new
                         {
-                            WardId = new Guid("8a254245-38e9-43c8-ab3b-2124d6e2d8ad"),
+                            WardId = new Guid("c36a4447-fe32-4730-9e46-8dcd62647fa0"),
                             Name = "Pediatrics Ward"
                         });
                 });
@@ -539,22 +541,6 @@ namespace MalamuleleHealth.EFCore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "fe6a2b11-c7d0-4587-b9ab-ca05dc2f460b",
-                            ConcurrencyStamp = "fa1af129-6b03-4fe7-a6b3-66b97473ff5a",
-                            Name = "Patient",
-                            NormalizedName = "PATIENT"
-                        },
-                        new
-                        {
-                            Id = "4e36a6c4-9d4d-4b62-b60c-67b66f95c149",
-                            ConcurrencyStamp = "3e6ecfc8-a556-4245-87bf-f0a74818d7fb",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

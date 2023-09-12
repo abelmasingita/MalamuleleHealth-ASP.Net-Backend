@@ -1,4 +1,7 @@
 ﻿using DataInterface.Domain;
+using MalamuleleHealth.EFCore.Application;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MalamuleleHealth.EFCore
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
@@ -32,6 +35,20 @@ namespace MalamuleleHealth.EFCore
         {
             base.OnModelCreating(modelBuilder);
 
+
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Name = "Patient",
+                    NormalizedName = "PATIENT"
+                },
+                new IdentityRole
+                {
+                    Name = "Administrator",
+                    NormalizedName = "ADMINISTRATOR"
+                }
+            );
             var department1 = Guid.NewGuid();
             var department2 = Guid.NewGuid();
             var appointment1 = Guid.NewGuid();
