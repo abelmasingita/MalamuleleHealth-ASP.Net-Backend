@@ -1,5 +1,6 @@
 ﻿using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace MalamuleleHealth.Web.Controllers
             this.unitofWork = unitofWork;
         }
 
+        [Authorize]
         [HttpGet(Name = "GetBeds")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Bed>))]
         public async Task<IActionResult> GetBeds()
@@ -25,7 +27,7 @@ namespace MalamuleleHealth.Web.Controllers
             return Ok(bed);
         }
 
-
+        [Authorize]
         [HttpGet("bedId")]
         [ProducesResponseType(200, Type = typeof(Bed))]
         [ProducesResponseType(400, Type = typeof(Bed))]

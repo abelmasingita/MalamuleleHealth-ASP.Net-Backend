@@ -2,9 +2,11 @@
 using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore.Application;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MalamuleleHealth.Web.Controllers
 {
@@ -12,19 +14,17 @@ namespace MalamuleleHealth.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IUnitofWork unitofWork;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
-        public AccountController(IUnitofWork unitofWork, UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
-            this.unitofWork = unitofWork;
             this.userManager = userManager;
             this.mapper = mapper;
         }
 
-        [HttpPost(Name ="Register")]
-        public async Task<IActionResult> RegisterAsync(Registration NewUser)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(Registration NewUser)
         {
             if (!ModelState.IsValid)
             {
@@ -45,6 +45,38 @@ namespace MalamuleleHealth.Web.Controllers
             await userManager.AddToRoleAsync(user, "Patient");
 
             return Ok();
+
+        }
+
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(Login login)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await userManager.FindByEmailAsync(login.Email);
+            if (user != null &&
+                await userManager.CheckPasswordAsync(user, login.Password))
+            {
+                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
+
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
+                    new ClaimsPrincipal(identity));
+
+
+                return Ok("User Logged In");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid UserName or Password");
+                return BadRequest(ModelState);
+            }
 
         }
 
