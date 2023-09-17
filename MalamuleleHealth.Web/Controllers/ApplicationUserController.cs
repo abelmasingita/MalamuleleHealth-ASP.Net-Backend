@@ -6,6 +6,7 @@ using MalamuleleHealth.EFCore.Application;
 using MalamuleleHealth.Web.Configurations.Dto;
 using MalamuleleHealth.Web.Configurations.Dto.User;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace MalamuleleHealth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ApplicationUserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
