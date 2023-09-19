@@ -8,7 +8,6 @@ namespace MalamuleleHealth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class AppointmentController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;

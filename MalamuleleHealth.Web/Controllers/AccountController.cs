@@ -2,27 +2,33 @@
 using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore.Application;
+using MalamuleleHealth.Web.Configurations.Dto.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace MalamuleleHealth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
+        private readonly IConfiguration _configuration;
+        private ApplicationUser _user;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.mapper = mapper;
+            _configuration = configuration;
         }
 
         [HttpPost("Register")]
@@ -52,36 +58,59 @@ namespace MalamuleleHealth.Web.Controllers
 
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(Login login)
+        public async Task<AuthResponseDto> Login([FromBody] Login login)
         {
-            if (!ModelState.IsValid)
+            _user = await userManager.FindByEmailAsync(login.Email);
+            bool isValidUser = await userManager.CheckPasswordAsync(_user, login.Password);
+
+            if (_user == null || isValidUser == false)
             {
-                return BadRequest(ModelState);
+                return null;
+            }
+            var token = await GenerateToken();
+
+            if (token == null)
+            {
+                return null;
             }
 
-            var user = await userManager.FindByEmailAsync(login.Email);
-            if (user != null &&
-                await userManager.CheckPasswordAsync(user, login.Password))
-            {
-                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-
-                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
-                    new ClaimsPrincipal(identity));
-
-
-                return Ok("User Logged In");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid UserName or Password");
-                return BadRequest(ModelState);
-            }
+            return new AuthResponseDto { Token = token, UserId = _user.Id };
 
         }
 
+
+
+        private async Task<string> GenerateToken()
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
+
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var roles = await userManager.GetRolesAsync(_user);
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
+            var userClaims = await userManager.GetClaimsAsync(_user);
+
+            var claims = new List<Claim> {
+
+                    new Claim(JwtRegisteredClaimNames.Sub, _user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, _user.Email),
+                    new Claim("uid", _user.Id),
+            }.Union(userClaims).Union(roleClaims);
+
+
+            var token = new JwtSecurityToken(
+
+                    issuer: _configuration["JwtSettings:Issuer"],
+                    audience: _configuration["JwtSettings:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["JwtSettings:DurationInMinutes"])),
+                    signingCredentials: credentials
+
+           );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+        }
     }
 
 }
