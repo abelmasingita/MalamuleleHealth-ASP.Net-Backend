@@ -21,8 +21,9 @@ namespace DataInterface.Domain
         [DisplayName("Payment Date")]
         public DateTime PaymentDate { get; set; }
 
-       /* public long PatientId { get; set; }
+        public string PatientId { get; set; }
+
         [ForeignKey("PatientId")]
-        public virtual User Patient { get; set; }*/
+        public ApplicationUser Patient { get; set; }
     }
 }

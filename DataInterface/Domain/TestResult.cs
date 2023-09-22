@@ -25,8 +25,10 @@ namespace DataInterface.Domain
         public Guid MedicalTestId { get; set; }
         public MedicalTest MedicalTests { get; set; }
 
-        /*public long PatientId { get; set; }
+        public string PatientId { get; set; }
+
         [ForeignKey("PatientId")]
-        public virtual User Patient { get; set; }*/
+        public ApplicationUser Patient { get; set; }
+
     }
 }

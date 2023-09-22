@@ -30,12 +30,9 @@ namespace DataInterface.Domain
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
 
-        /*[ForeignKey(nameof(DoctorId))]
-        public User Doctor { get; set; }
-        public long DoctorId { get; set; }
+        public string DoctorId { get; set; }
 
-        [ForeignKey(nameof(PatientId))]
-        public User Patient { get; set; }
-        public long PatientId { get; set; }*/
+        [ForeignKey("DoctorId")]
+        public ApplicationUser Doctor { get; set; }
     }
 }

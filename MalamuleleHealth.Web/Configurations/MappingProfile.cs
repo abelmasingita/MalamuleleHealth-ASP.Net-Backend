@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataInterface.Domain;
 using MalamuleleHealth.EFCore.Application;
 using MalamuleleHealth.Web.Configurations.Dto;
 using MalamuleleHealth.Web.Configurations.Dto.User;

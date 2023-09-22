@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MalamuleleHealth.EFCore.Application
+namespace DataInterface.Domain
 {
     public class ApplicationUser : IdentityUser
     {

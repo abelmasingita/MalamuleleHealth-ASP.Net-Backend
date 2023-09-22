@@ -24,8 +24,9 @@ namespace DataInterface.Domain
         public string Status { get; set; }
 
 
-       /* public long PatientId { get; set; }
+        public string PatientId { get; set; }
+
         [ForeignKey("PatientId")]
-        public virtual User Patient { get; set; }*/
+        public ApplicationUser Patient { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using MalamuleleHealth.Web.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using DataInterface.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

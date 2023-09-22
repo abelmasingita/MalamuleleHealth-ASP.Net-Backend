@@ -100,7 +100,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RemoveAppointment(Guid appointmentId)
         {
             var ap = unitofWork.Appointment.Get(a => a.AppointmentId == appointmentId).GetAwaiter().GetResult();

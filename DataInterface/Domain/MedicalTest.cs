@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataInterface.Domain
 {
@@ -26,5 +27,6 @@ namespace DataInterface.Domain
         public Guid DepartmentId { get; set; }
         public Department Departments { get; set; }
         public ICollection<TestResult> TestResults { get; set; }
+
     }
 }
