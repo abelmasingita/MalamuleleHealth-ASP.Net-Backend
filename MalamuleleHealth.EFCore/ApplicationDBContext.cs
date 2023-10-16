@@ -41,7 +41,7 @@ namespace MalamuleleHealth.EFCore
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new PrescriptionConfiguration());
-            modelBuilder.ApplyConfiguration(new TestResultConfiguration());*/
+            modelBuilder.ApplyConfiguration(new TestResultConfiguration());
          
 
 
@@ -88,7 +88,7 @@ namespace MalamuleleHealth.EFCore
                 .HasOne(a => a.Doctor)
                 .WithMany()
                 .HasForeignKey(a => a.DoctorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
 
         }
 

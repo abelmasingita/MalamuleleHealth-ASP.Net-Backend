@@ -254,3 +254,4 @@ paket-files/
 src/MalamuleleHealth.Web.Mvc/secrets.json
 src/MalamuleleHealth.Web.Host/secrets.json
 src/MalamuleleHealth.Migrator/secrets.json
+/MalamuleleHealth.Web
