@@ -22,7 +22,7 @@ namespace DataInterface.Domain
         public string Status { get; set; }
 
 
-        //relations
+        /*//relations
         public string PatientId { get; set; }
         public string DoctorId { get; set; }
 
@@ -30,6 +30,6 @@ namespace DataInterface.Domain
         public ApplicationUser Patient { get; set; }
 
         [ForeignKey("DoctorId")]
-        public ApplicationUser Doctor { get; set; }
+        public ApplicationUser Doctor { get; set; }*/
     }
 }

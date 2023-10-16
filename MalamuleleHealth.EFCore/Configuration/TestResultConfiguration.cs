@@ -25,8 +25,6 @@ namespace MalamuleleHealth.EFCore.Configuration
                       TestDate = DateTime.Now.Date.AddDays(-7),
                       ResultDetails = "Normal blood pressure reading",
                       MedicalTestId = configEnums.medicalTest1,
-                     
-                      PatientId = "5110a519-0720-453a-970f-9b4a9e8ee063"
                   },
                   new TestResult
                   {
@@ -34,8 +32,6 @@ namespace MalamuleleHealth.EFCore.Configuration
                       TestDate = DateTime.Now.Date.AddDays(-3),
                       ResultDetails = "No fractures detected",
                       MedicalTestId = configEnums.medicalTest2,
-                      
-                      PatientId = "5110a519-0720-453a-970f-9b4a9e8ee063"
                   }
             );
         }

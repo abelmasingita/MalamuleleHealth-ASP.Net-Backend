@@ -26,8 +26,8 @@ namespace MalamuleleHealth.EFCore.Configuration
                   AppointmentTime = DateTime.Now,
                   Purpose = "Regular checkup",
                   Status = "Scheduled",
-                  DoctorId = "1adec12d-3ac6-4fbb-ad08-bcb32f34b3b3",
-                  PatientId = "5110a519-0720-453a-970f-9b4a9e8ee063"
+                  /*DoctorId = "1adec12d-3ac6-4fbb-ad08-bcb32f34b3b3",
+                  PatientId = "5110a519-0720-453a-970f-9b4a9e8ee063"*/
               },
               new Appointment
               {
@@ -36,8 +36,8 @@ namespace MalamuleleHealth.EFCore.Configuration
                   AppointmentTime = DateTime.Now,
                   Purpose = "Follow-up",
                   Status = "Scheduled",
-                  DoctorId = "a9e42f48-56e0-482b-b630-3dcfe2ba1ce5",
-                  PatientId = "5f2684a2-3f9f-422f-ba4c-6588e4c620b8"
+                  /*DoctorId = "a9e42f48-56e0-482b-b630-3dcfe2ba1ce5",
+                  PatientId = "5f2684a2-3f9f-422f-ba4c-6588e4c620b8"*/
               }
       );
         }

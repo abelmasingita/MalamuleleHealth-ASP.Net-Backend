@@ -22,10 +22,10 @@ namespace DataInterface.Domain
         public DateTime PaymentDate { get; set; }
 
 
-        //relationships
+        /*//relationships
         public string PatientId { get; set; }
 
         [ForeignKey("PatientId")]
-        public ApplicationUser Patient { get; set; }
+        public ApplicationUser Patient { get; set; }*/
     }
 }

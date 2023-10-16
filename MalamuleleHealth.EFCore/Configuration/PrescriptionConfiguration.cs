@@ -26,7 +26,6 @@ namespace MalamuleleHealth.EFCore.Configuration
                        Instructions = "Take one tablet daily",
                        PrescriptionDate = DateTime.Now.Date.AddDays(-10),
                        AppointmentId = configEnums.appointment1,
-                       DoctorId = "1adec12d-3ac6-4fbb-ad08-bcb32f34b3b3",
                       
                    },
                    new Prescription
@@ -36,7 +35,6 @@ namespace MalamuleleHealth.EFCore.Configuration
                        Instructions = "Take as needed for pain",
                        PrescriptionDate = DateTime.Now.Date.AddDays(-5),
                        AppointmentId = configEnums.appointment2,
-                       DoctorId = "1adec12d-3ac6-4fbb-ad08-bcb32f34b3b3",
                       
                    }
             );
