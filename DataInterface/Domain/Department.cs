@@ -17,6 +17,8 @@ namespace DataInterface.Domain
         [DisplayName("Department Description")]
         public string Description { get; set; }
 
+
+
         //relationships
 
         [DisplayName("Wards")]

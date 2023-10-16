@@ -21,15 +21,11 @@ namespace DataInterface.Domain
         [DisplayName("Appointment Status")]
         public string Status { get; set; }
 
+        [DisplayName("Appointment Type")]
+        public string Type { get; set; }
 
-        /*//relations
-        public string PatientId { get; set; }
-        public string DoctorId { get; set; }
-
-        [ForeignKey("PatientId")]
+        //relations
         public ApplicationUser Patient { get; set; }
-
-        [ForeignKey("DoctorId")]
-        public ApplicationUser Doctor { get; set; }*/
+        public ApplicationUser Doctor { get; set; }
     }
 }
