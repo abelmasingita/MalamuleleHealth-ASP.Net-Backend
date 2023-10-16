@@ -24,6 +24,8 @@ namespace DataInterface.Domain
         [DisplayName("Treatment")]
         public string Treatment { get; set; }
 
+
+        //relationships
         public string PatientId { get; set; }
 
         [ForeignKey("PatientId")]

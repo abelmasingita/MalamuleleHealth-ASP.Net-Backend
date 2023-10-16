@@ -21,6 +21,8 @@ namespace DataInterface.Domain
         [DisplayName("Payment Date")]
         public DateTime PaymentDate { get; set; }
 
+
+        //relationships
         public string PatientId { get; set; }
 
         [ForeignKey("PatientId")]

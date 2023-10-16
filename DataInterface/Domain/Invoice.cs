@@ -24,6 +24,7 @@ namespace DataInterface.Domain
         public string Status { get; set; }
 
 
+        //relationships
         public string PatientId { get; set; }
 
         [ForeignKey("PatientId")]
