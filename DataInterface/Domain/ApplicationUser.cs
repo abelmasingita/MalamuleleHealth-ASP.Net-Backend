@@ -21,7 +21,9 @@ namespace DataInterface.Domain
 
         //relationships
         public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
+        public ICollection<TestResult> TestResults { get; set; }
     }
 }
 

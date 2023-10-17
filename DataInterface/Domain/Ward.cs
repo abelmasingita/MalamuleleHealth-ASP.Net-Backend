@@ -19,8 +19,14 @@ namespace DataInterface.Domain
         [DisplayName("Ward Name")]
         public string Name { get; set; }
 
+
+        //relationships
+
         [ForeignKey("DepartmentId")]
         public Guid DepartmentId { get; set; }
         public Department Departments { get; set; }
+
+        [DisplayName("Beds")]
+        public ICollection<Bed> Beds { get; set; }
     }
 }

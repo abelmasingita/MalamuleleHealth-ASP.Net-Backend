@@ -24,6 +24,7 @@ namespace DataInterface.Domain
         [DisplayName("Medical Test")]
         public Guid MedicalTestId { get; set; }
         public MedicalTest MedicalTests { get; set; }
+
         public string PatientId { get; set; }
         public ApplicationUser Patient { get; set; }
 
