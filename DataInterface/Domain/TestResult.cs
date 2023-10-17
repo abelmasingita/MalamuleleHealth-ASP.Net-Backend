@@ -12,7 +12,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("TestResult Id")]
-        public Guid TestResultId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Test Date")]
         public DateTime TestDate { get; set; }

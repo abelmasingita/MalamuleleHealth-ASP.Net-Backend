@@ -11,7 +11,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("Message Id")]
-        public Guid MessageId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Appointment Date")]
         public DateTime AppointmentDate { get; set; }

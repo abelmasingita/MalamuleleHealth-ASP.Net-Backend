@@ -10,7 +10,7 @@ namespace DataInterface.Domain
     public class Department
     {
         [DisplayName("Department Id")]
-        public Guid DepartmentId { get; set; }
+        public Guid Id { get; set; }
         [DisplayName("Department Name")]
         public string Name { get; set; }
 

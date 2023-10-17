@@ -7,7 +7,7 @@ namespace DataInterface.Domain
     {
 
         [DisplayName("Appointment Id")]
-        public Guid AppointmentId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Appointment Date")]
         public DateTime AppointmentDate { get; set; }
@@ -24,8 +24,11 @@ namespace DataInterface.Domain
         [DisplayName("Appointment Type")]
         public string Type { get; set; }
 
-        //relations
-        public ApplicationUser Patient { get; set; }
-        public ApplicationUser Doctor { get; set; }
+        //relationships
+        public string PatientId { get; set; } 
+        public ApplicationUser Patient { get; set; } 
+
+        public string DoctorId { get; set; } 
+        public ApplicationUser Doctor { get; set; } 
     }
 }

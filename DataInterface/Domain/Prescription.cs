@@ -12,7 +12,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("Prescription Id")]
-        public Guid PrescriptionId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Medication")]
         public string Medication { get; set; }
@@ -28,8 +28,9 @@ namespace DataInterface.Domain
         [DisplayName("Appointment")]
         public Guid? AppointmentId { get; set; }
         [ForeignKey("AppointmentId")]
-        public virtual Appointment Appointment { get; set; }
 
+        public virtual Appointment Appointment { get; set; }
+        public string ApplicationUser { get; set; } // Foreign Key to ApplicationUser
         public ApplicationUser Doctor { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,7 @@ namespace DataInterface.Domain
 
         //relationships
         public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
     }
 }
 

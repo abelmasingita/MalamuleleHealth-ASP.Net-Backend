@@ -12,7 +12,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("Ward Id")]
-        public Guid WardId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [DisplayName("Ward Name")]

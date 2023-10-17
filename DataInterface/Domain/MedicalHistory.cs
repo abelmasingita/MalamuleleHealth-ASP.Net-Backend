@@ -13,7 +13,7 @@ namespace DataInterface.Domain
 
         //[Required]
         [DisplayName("MedicalHistory Id")]
-        public Guid MedicalHistoryId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("DiagnosisDate Date")]
         public DateTime DiagnosisDate { get; set; }
@@ -26,6 +26,7 @@ namespace DataInterface.Domain
 
 
         //relationships
+        public string PatientId { get; set; } // Foreign Key to ApplicationUser
         public ApplicationUser Patient { get; set; }
     }
 }

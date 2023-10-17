@@ -13,7 +13,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("MedicalTest Id")]
-        public Guid MedicalTestId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [DisplayName("Medical Test Name")]

@@ -13,7 +13,7 @@ namespace DataInterface.Domain
 
         //[Required]
         [DisplayName("Payment Id")]
-        public Guid PaymentId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Payment Amount")]
         public float Amount { get; set; }
@@ -23,6 +23,7 @@ namespace DataInterface.Domain
 
 
         //relationships
+        public string PatientId { get; set; } // Foreign Key to ApplicationUser
         public ApplicationUser Patient { get; set; }
     }
 }

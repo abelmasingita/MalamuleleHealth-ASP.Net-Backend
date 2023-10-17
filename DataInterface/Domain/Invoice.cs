@@ -12,7 +12,7 @@ namespace DataInterface.Domain
     {
         //[Required]
         [DisplayName("Invoice Id")]
-        public Guid InvoiceId { get; set; }
+        public Guid Id { get; set; }
 
         [DisplayName("Invoice")]
         public float TotalAmount { get; set; }
@@ -25,6 +25,7 @@ namespace DataInterface.Domain
 
 
         //relationships
+        public string PatientId { get; set; } // Foreign Key to ApplicationUser
         public ApplicationUser Patient { get; set; }
     }
 }
