@@ -21,7 +21,7 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                     new Message
                     {
-                        MessageId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         AppointmentDate = DateTime.Now.Date.AddDays(2),
                         AppointmentTime = DateTime.Now,
                         Purpose = "Appointment Reminder",
@@ -29,7 +29,7 @@ namespace MalamuleleHealth.EFCore.Configuration
                     },
                     new Message
                     {
-                        MessageId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         AppointmentDate = DateTime.Now.Date.AddDays(3),
                         AppointmentTime = DateTime.Now,
                         Purpose = "Appointment Confirmation",

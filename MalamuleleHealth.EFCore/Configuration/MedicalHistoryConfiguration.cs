@@ -21,14 +21,14 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                 new MedicalHistory
                 {
-                    MedicalHistoryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     DiagnosisDate = DateTime.Now.Date.AddMonths(-6),
                     MedicalCondition = "Hypertension",
                     Treatment = "Medication and lifestyle changes",
                 },
                 new MedicalHistory
                 {
-                    MedicalHistoryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     DiagnosisDate = DateTime.Now.Date.AddMonths(-12),
                     MedicalCondition = "Diabetes",
                     Treatment = "Insulin therapy",

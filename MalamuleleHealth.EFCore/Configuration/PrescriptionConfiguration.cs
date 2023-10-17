@@ -21,7 +21,7 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                    new Prescription
                    {
-                       PrescriptionId = Guid.NewGuid(),
+                       Id = Guid.NewGuid(),
                        Medication = "Aspirin",
                        Instructions = "Take one tablet daily",
                        PrescriptionDate = DateTime.Now.Date.AddDays(-10),
@@ -30,7 +30,7 @@ namespace MalamuleleHealth.EFCore.Configuration
                    },
                    new Prescription
                    {
-                       PrescriptionId = Guid.NewGuid(),
+                       Id = Guid.NewGuid(),
                        Medication = "Ibuprofen",
                        Instructions = "Take as needed for pain",
                        PrescriptionDate = DateTime.Now.Date.AddDays(-5),

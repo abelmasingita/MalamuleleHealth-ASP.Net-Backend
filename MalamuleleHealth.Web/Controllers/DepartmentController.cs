@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Department))]
         public async Task<IActionResult> GetDepartment(Guid departmentId)
         {
-            var dp = unitofWork.Department.Get(d => d.DepartmentId == departmentId).GetAwaiter().GetResult();   
+            var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();   
             if (dp == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveDepartment(Guid departmentId)
         {
-            var dp = unitofWork.Department.Get(d => d.DepartmentId == departmentId).GetAwaiter().GetResult();
+            var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();
             if (dp == null)
             {
                 return NotFound();

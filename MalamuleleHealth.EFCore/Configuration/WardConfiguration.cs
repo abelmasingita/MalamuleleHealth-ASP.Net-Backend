@@ -21,12 +21,12 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                     new Ward
                     {
-                        WardId = configEnums.ward1,
+                        Id = configEnums.ward1,
                         Name = "General Ward",
                     },
                     new Ward
                     {
-                        WardId = configEnums.ward2,
+                        Id = configEnums.ward2,
                         Name = "Pediatrics Ward",
                     }
             );

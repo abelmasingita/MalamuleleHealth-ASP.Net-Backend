@@ -21,7 +21,7 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                         new Invoice
                         {
-                            InvoiceId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             TotalAmount = 250.50f,
                             DueDate = DateTime.Now.Date.AddDays(30),
                             Status = "Pending",                    
@@ -30,7 +30,7 @@ namespace MalamuleleHealth.EFCore.Configuration
                         },
                         new Invoice
                         {
-                            InvoiceId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             TotalAmount = 150.25f,
                             DueDate = DateTime.Now.Date.AddDays(15),
                             Status = "Paid",                          

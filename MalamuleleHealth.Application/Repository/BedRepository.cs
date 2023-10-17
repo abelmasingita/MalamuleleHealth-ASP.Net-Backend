@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Bed bed)
         {
-            var bedDb = dbContext.Beds.FirstAsync(a => a.BedId == bed.BedId).GetAwaiter().GetResult();
+            var bedDb = dbContext.Beds.FirstAsync(a => a.Id == bed.Id).GetAwaiter().GetResult();
 
             if (bedDb != null)
             {

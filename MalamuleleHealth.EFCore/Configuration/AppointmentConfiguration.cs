@@ -21,7 +21,7 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
               new Appointment
               {
-                  AppointmentId = configEnums.appointment1,
+                  Id = configEnums.appointment1,
                   AppointmentDate = DateTime.Now.Date,
                   AppointmentTime = DateTime.Now,
                   Purpose = "Regular checkup",
@@ -31,7 +31,7 @@ namespace MalamuleleHealth.EFCore.Configuration
               },
               new Appointment
               {
-                  AppointmentId = configEnums.appointment2,
+                  Id = configEnums.appointment2,
                   AppointmentDate = DateTime.Now.Date,
                   AppointmentTime = DateTime.Now,
                   Purpose = "Follow-up",

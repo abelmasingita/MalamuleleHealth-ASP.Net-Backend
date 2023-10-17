@@ -21,14 +21,14 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                     new MedicalTest
                     {
-                        MedicalTestId = configEnums.medicalTest1,
+                        Id = configEnums.medicalTest1,
                         TestName = "Blood Pressure",
                         Cost = 45.00f,
                         DepartmentId = configEnums.department1,
                     },
                     new MedicalTest
                     {
-                        MedicalTestId = configEnums.medicalTest2,
+                        Id = configEnums.medicalTest2,
                         TestName = "X-Ray",
                         Cost = 120.50f,
                         DepartmentId = configEnums.department2,

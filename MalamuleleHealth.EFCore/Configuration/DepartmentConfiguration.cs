@@ -21,13 +21,13 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                 new Department
                 {
-                    DepartmentId = configEnums.department1,
+                    Id = configEnums.department1,
                     Name = "Cardiology",
                     Description = "Heart-related issues",
                 },
                 new Department
                 {
-                    DepartmentId = configEnums.department2,
+                    Id = configEnums.department2,
                     Name = "Orthopedics",
                     Description = "Musculoskeletal disorders",
                 }

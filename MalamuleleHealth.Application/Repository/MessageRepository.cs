@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Message message)
         {
-            var m = dbContext.Messages.FirstAsync(a => a.MessageId == message.MessageId).GetAwaiter().GetResult();
+            var m = dbContext.Messages.FirstAsync(a => a.Id == message.Id).GetAwaiter().GetResult();
 
             if (m != null)
             {

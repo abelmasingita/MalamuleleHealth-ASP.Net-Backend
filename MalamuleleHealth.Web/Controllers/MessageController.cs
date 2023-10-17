@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Message))]
         public async Task<IActionResult> GetMessage(Guid messageId)
         {
-            var mg = unitofWork.Message.Get(d => d.MessageId == messageId).GetAwaiter().GetResult();   
+            var mg = unitofWork.Message.Get(d => d.Id == messageId).GetAwaiter().GetResult();   
             if (mg == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveDepartment(Guid messageId)
         {
-            var mg = unitofWork.Message.Get(d => d.MessageId == messageId).GetAwaiter().GetResult();
+            var mg = unitofWork.Message.Get(d => d.Id == messageId).GetAwaiter().GetResult();
             if (mg == null)
             {
                 return NotFound();

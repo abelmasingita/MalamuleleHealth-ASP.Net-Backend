@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Payment payment)
         {
-            var p = dbContext.Payments.FirstAsync(a => a.PaymentId == payment.PaymentId).GetAwaiter().GetResult();
+            var p = dbContext.Payments.FirstAsync(a => a.Id == payment.Id).GetAwaiter().GetResult();
 
             if (p != null)
             {

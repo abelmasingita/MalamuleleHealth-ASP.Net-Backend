@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Invoice))]
         public async Task<IActionResult> GetInvoice(Guid invoiceId)
         {
-            var ivc = unitofWork.Invoice.Get(i => i.InvoiceId == invoiceId).GetAwaiter().GetResult();   
+            var ivc = unitofWork.Invoice.Get(i => i.Id == invoiceId).GetAwaiter().GetResult();   
             if (ivc == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveInvoice(Guid invoiceId)
         {
-            var ivc = unitofWork.Invoice.Get(d => d.InvoiceId == invoiceId).GetAwaiter().GetResult();
+            var ivc = unitofWork.Invoice.Get(d => d.Id == invoiceId).GetAwaiter().GetResult();
             if (ivc == null)
             {
                 return NotFound();

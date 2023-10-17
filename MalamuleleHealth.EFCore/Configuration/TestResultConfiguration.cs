@@ -21,14 +21,14 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                   new TestResult
                   {
-                      TestResultId = Guid.NewGuid(),
+                      Id = Guid.NewGuid(),
                       TestDate = DateTime.Now.Date.AddDays(-7),
                       ResultDetails = "Normal blood pressure reading",
                       MedicalTestId = configEnums.medicalTest1,
                   },
                   new TestResult
                   {
-                      TestResultId = Guid.NewGuid(),
+                      Id = Guid.NewGuid(),
                       TestDate = DateTime.Now.Date.AddDays(-3),
                       ResultDetails = "No fractures detected",
                       MedicalTestId = configEnums.medicalTest2,

@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Ward))]
         public async Task<IActionResult> GetWard(Guid wardId)
         {
-            var ward = unitofWork.Ward.Get(d => d.WardId == wardId).GetAwaiter().GetResult();   
+            var ward = unitofWork.Ward.Get(d => d.Id == wardId).GetAwaiter().GetResult();   
             if (ward == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveWard(Guid wardId)
         {
-            var ward = unitofWork.Ward.Get(d => d.WardId == wardId).GetAwaiter().GetResult();
+            var ward = unitofWork.Ward.Get(d => d.Id == wardId).GetAwaiter().GetResult();
             if (ward == null)
             {
                 return NotFound();

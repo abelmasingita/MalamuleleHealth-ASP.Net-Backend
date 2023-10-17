@@ -35,7 +35,7 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize]
         public async Task<IActionResult> GetAppointment(Guid appointmentId)
         {
-            var ap = unitofWork.Appointment.Get(a => a.AppointmentId == appointmentId).GetAwaiter().GetResult();   
+            var ap = unitofWork.Appointment.Get(a => a.Id == appointmentId).GetAwaiter().GetResult();   
             if (ap == null)
             {
                 return NotFound();
@@ -103,7 +103,7 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RemoveAppointment(Guid appointmentId)
         {
-            var ap = unitofWork.Appointment.Get(a => a.AppointmentId == appointmentId).GetAwaiter().GetResult();
+            var ap = unitofWork.Appointment.Get(a => a.Id == appointmentId).GetAwaiter().GetResult();
             if (ap == null)
             {
                 return NotFound();

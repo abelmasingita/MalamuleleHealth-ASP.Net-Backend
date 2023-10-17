@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Payment))]
         public async Task<IActionResult> GetPayment(Guid paymentId)
         {
-            var payment = unitofWork.Payment.Get(d => d.PaymentId == paymentId).GetAwaiter().GetResult();   
+            var payment = unitofWork.Payment.Get(d => d.Id == paymentId).GetAwaiter().GetResult();   
             if (payment == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemovePayment(Guid paymentId)
         {
-            var payment = unitofWork.Payment.Get(d => d.PaymentId == paymentId).GetAwaiter().GetResult();
+            var payment = unitofWork.Payment.Get(d => d.Id == paymentId).GetAwaiter().GetResult();
             if (payment == null)
             {
                 return NotFound();

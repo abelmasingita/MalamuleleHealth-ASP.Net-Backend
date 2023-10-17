@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(TestResult))]
         public async Task<IActionResult> GetTestResult(Guid testResultId)
         {
-            var tr = unitofWork.TestResult.Get(d => d.TestResultId == testResultId).GetAwaiter().GetResult();   
+            var tr = unitofWork.TestResult.Get(d => d.Id == testResultId).GetAwaiter().GetResult();   
             if (tr == null)
             {
                 return NotFound();
@@ -99,7 +99,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveTestResult(Guid testResultId)
         {
-            var testResult = unitofWork.TestResult.Get(d => d.TestResultId == testResultId).GetAwaiter().GetResult();
+            var testResult = unitofWork.TestResult.Get(d => d.Id == testResultId).GetAwaiter().GetResult();
             if (testResult == null)
             {
                 return NotFound();

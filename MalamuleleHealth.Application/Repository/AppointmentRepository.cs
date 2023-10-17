@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Appointment appointment)
         {
-            var appointmentdb = dbContext.Appointments.FirstAsync(a => a.AppointmentId == appointment.AppointmentId).GetAwaiter().GetResult();
+            var appointmentdb = dbContext.Appointments.FirstAsync(a => a.Id == appointment.Id).GetAwaiter().GetResult();
 
             if(appointmentdb != null)
             {

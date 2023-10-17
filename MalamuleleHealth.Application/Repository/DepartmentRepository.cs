@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Department department)
         {
-            var dp = dbContext.Departments.FirstAsync(d => d.DepartmentId == department.DepartmentId).GetAwaiter().GetResult();
+            var dp = dbContext.Departments.FirstAsync(d => d.Id == department.Id).GetAwaiter().GetResult();
 
             if (dp != null)
             {

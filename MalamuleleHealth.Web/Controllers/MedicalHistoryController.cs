@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(MedicalHistory))]
         public async Task<IActionResult> GetMedicalHistory(Guid medicalHistoryId)
         {
-            var md = unitofWork.MedicalHistory.Get(md => md.MedicalHistoryId == medicalHistoryId).GetAwaiter().GetResult();   
+            var md = unitofWork.MedicalHistory.Get(md => md.Id == medicalHistoryId).GetAwaiter().GetResult();   
             if (md == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveMedicalHistory(Guid medicalHistoryId)
         {
-            var md = unitofWork.MedicalHistory.Get(d => d.MedicalHistoryId == medicalHistoryId).GetAwaiter().GetResult();
+            var md = unitofWork.MedicalHistory.Get(d => d.Id == medicalHistoryId).GetAwaiter().GetResult();
             if (md == null)
             {
                 return NotFound();

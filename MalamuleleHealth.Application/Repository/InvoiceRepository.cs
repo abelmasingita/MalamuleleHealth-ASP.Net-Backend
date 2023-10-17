@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Invoice invoice)
         {
-            var inv = dbContext.Invoices.FirstAsync(i => i.InvoiceId == invoice.InvoiceId).GetAwaiter().GetResult();
+            var inv = dbContext.Invoices.FirstAsync(i => i.Id == invoice.Id).GetAwaiter().GetResult();
 
             if (inv != null)
             {

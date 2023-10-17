@@ -21,14 +21,14 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                         new Bed
                         {
-                            BedId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Number = 101,
                             Availability = true,
                             WardId = configEnums.ward1
                         },
                         new Bed
                         {
-                            BedId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Number = 102,
                             Availability = false,
                             WardId = configEnums.ward2,

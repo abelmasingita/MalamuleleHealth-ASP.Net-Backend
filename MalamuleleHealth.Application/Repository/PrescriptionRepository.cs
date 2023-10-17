@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(Prescription prescription)
         {
-            var p = dbContext.Prescriptions.FirstAsync(a => a.PrescriptionId == prescription.PrescriptionId).GetAwaiter().GetResult();
+            var p = dbContext.Prescriptions.FirstAsync(a => a.Id == prescription.Id).GetAwaiter().GetResult();
 
             if (p != null)
             {

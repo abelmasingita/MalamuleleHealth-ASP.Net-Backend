@@ -35,7 +35,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Bed))]
         public async Task<IActionResult> GetBed(Guid bedId)
         {
-            var bed = unitofWork.Bed.Get(d => d.BedId == bedId).GetAwaiter().GetResult();   
+            var bed = unitofWork.Bed.Get(d => d.Id == bedId).GetAwaiter().GetResult();   
             if (bed == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemoveBed(Guid bedId)
         {
-            var bed = unitofWork.Bed.Get(b => b.BedId == bedId).GetAwaiter().GetResult();
+            var bed = unitofWork.Bed.Get(b => b.Id == bedId).GetAwaiter().GetResult();
             if (bed == null)
             {
                 return NotFound();

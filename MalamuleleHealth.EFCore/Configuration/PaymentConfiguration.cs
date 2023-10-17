@@ -21,13 +21,13 @@ namespace MalamuleleHealth.EFCore.Configuration
             builder.HasData(
                     new Payment
                     {
-                        PaymentId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Amount = 75.00f,
                         PaymentDate = DateTime.Now.Date.AddDays(-15),
                     },
                     new Payment
                     {
-                        PaymentId = Guid.NewGuid(),
+                        Id = Guid.NewGuid(),
                         Amount = 100.25f,
                         PaymentDate = DateTime.Now.Date.AddDays(-30),
                     }

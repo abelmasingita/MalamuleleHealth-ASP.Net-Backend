@@ -34,7 +34,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404, Type = typeof(Prescription))]
         public async Task<IActionResult> GetPrescription(Guid prescriptionId)
         {
-            var prescription = unitofWork.Prescription.Get(d => d.PrescriptionId == prescriptionId).GetAwaiter().GetResult();   
+            var prescription = unitofWork.Prescription.Get(d => d.Id == prescriptionId).GetAwaiter().GetResult();   
             if (prescription == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> RemovePrescription(Guid prescriptionId)
         {
-            var prescrption = unitofWork.Prescription.Get(d => d.PrescriptionId == prescriptionId).GetAwaiter().GetResult();
+            var prescrption = unitofWork.Prescription.Get(d => d.Id == prescriptionId).GetAwaiter().GetResult();
             if (prescrption == null)
             {
                 return NotFound();

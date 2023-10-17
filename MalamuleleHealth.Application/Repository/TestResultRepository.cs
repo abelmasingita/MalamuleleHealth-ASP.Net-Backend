@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Application.Repository
 
         public void Update(TestResult testResult)
         {
-            var tr = dbContext.TestResults.FirstAsync(a => a.TestResultId == testResult.TestResultId).GetAwaiter().GetResult();
+            var tr = dbContext.TestResults.FirstAsync(a => a.Id == testResult.Id).GetAwaiter().GetResult();
 
             if (tr != null)
             {
