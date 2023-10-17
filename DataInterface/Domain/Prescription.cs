@@ -26,11 +26,11 @@ namespace DataInterface.Domain
 
         //relationships
         [DisplayName("Appointment")]
-        public Guid? AppointmentId { get; set; }
-        [ForeignKey("AppointmentId")]
+        public Guid AppointmentId { get; set; }
 
+        [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
-        public string ApplicationUser { get; set; } // Foreign Key to ApplicationUser
+        public string DoctorId { get; set; }
         public ApplicationUser Doctor { get; set; }
     }
 }

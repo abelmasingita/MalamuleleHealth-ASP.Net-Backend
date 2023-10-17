@@ -20,7 +20,6 @@ namespace DataInterface.Domain
 
 
         //relationships
-
         [DisplayName("Wards")]
         public ICollection<Ward> Wards { get; set; }
 

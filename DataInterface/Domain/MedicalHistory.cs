@@ -26,7 +26,7 @@ namespace DataInterface.Domain
 
 
         //relationships
-        public string PatientId { get; set; } // Foreign Key to ApplicationUser
+        public string PatientId { get; set; } 
         public ApplicationUser Patient { get; set; }
     }
 }

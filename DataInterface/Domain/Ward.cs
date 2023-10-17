@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataInterface.Domain
 {
@@ -17,5 +18,9 @@ namespace DataInterface.Domain
         [Required]
         [DisplayName("Ward Name")]
         public string Name { get; set; }
+
+        [ForeignKey("DepartmentId")]
+        public Guid DepartmentId { get; set; }
+        public Department Departments { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace DataInterface.Domain
         [DisplayName("Appointment Type")]
         public string Type { get; set; }
 
+
         //relationships
         public string PatientId { get; set; } 
         public ApplicationUser Patient { get; set; } 
