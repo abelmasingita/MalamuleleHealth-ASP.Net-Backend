@@ -29,12 +29,9 @@ namespace DataInterface.Domain
         //relationships
         [Required(ErrorMessage = "Patient is Required")]
         public string PatientId { get; set; }
-        [NotMapped]
-        public User Patient { get; set; }
 
         [Required(ErrorMessage = "Doctor is Required")]
         public string DoctorId { get; set; }
-        [NotMapped]
-        public User Doctor { get; set; } 
+
     }
 }

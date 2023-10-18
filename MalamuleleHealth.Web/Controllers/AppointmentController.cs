@@ -22,24 +22,25 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
         [HttpGet(Name = "GetAppointments")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Appointment>))]
-        [Authorize]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<AppointmentDto>))]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician")]
         public async Task<IActionResult> GetAppointments()
         {
-            var ap = unitofWork.Appointment.GetList().GetAwaiter().GetResult();
+            var ap = await unitofWork.Appointment.GetList();
 
             return Ok(ap);
         }
 
 
+
         [HttpGet("appointmentId")]
-        [ProducesResponseType(200, Type = typeof(Appointment))]
-        [ProducesResponseType(400, Type = typeof(Appointment))]
-        [ProducesResponseType(404, Type = typeof(Appointment))]
+        [ProducesResponseType(200, Type = typeof(AppointmentDto))]
+        [ProducesResponseType(400, Type = typeof(AppointmentDto))]
+        [ProducesResponseType(404, Type = typeof(AppointmentDto))]
         [Authorize]
         public async Task<IActionResult> GetAppointment(Guid appointmentId)
         {
-            var ap = unitofWork.Appointment.Get(a => a.Id == appointmentId).GetAwaiter().GetResult();   
+            var ap =await unitofWork.Appointment.Get(a => a.Id == appointmentId);   
             if (ap == null)
             {
                 return NotFound();
@@ -73,10 +74,10 @@ namespace MalamuleleHealth.Web.Controllers
 
 
         [HttpPut("appointmentId")]
-        [ProducesResponseType(200, Type = typeof(Appointment))]
-        [ProducesResponseType(400, Type = typeof(Appointment))]
+        [ProducesResponseType(200, Type = typeof(AppointmentDto))]
+        [ProducesResponseType(400, Type = typeof(AppointmentDto))]
         [Authorize]
-        public async Task<IActionResult> UpdateAppointment(Guid appointmentId, [FromBody] Appointment appointment)
+        public async Task<IActionResult> UpdateAppointment(Guid appointmentId, [FromBody] AppointmentDto appointment)
         {
             if (appointment == null)
             {
@@ -90,7 +91,8 @@ namespace MalamuleleHealth.Web.Controllers
 
             if(GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
             {
-                unitofWork.Appointment.Update(appointment);
+                var apt = mapper.Map<Appointment>(appointment);
+                unitofWork.Appointment.Update(apt);
                 unitofWork.Save();
 
             }else
