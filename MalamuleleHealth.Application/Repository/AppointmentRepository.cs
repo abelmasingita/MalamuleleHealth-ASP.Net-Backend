@@ -19,18 +19,20 @@ namespace MalamuleleHealth.Application.Repository
             this.dbContext = dbContext;
         }
 
-        public void Update(Appointment appointment)
+        public async Task<Appointment> UpdateAsync(Appointment appointment)
         {
-            var appointmentdb = dbContext.Appointments.FirstAsync(a => a.Id == appointment.Id).GetAwaiter().GetResult();
+            var appointmentdb = await dbContext.Appointments.FirstAsync(a => a.Id == appointment.Id);
 
-            if(appointmentdb != null)
+            if (appointmentdb != null)
             {
                 appointmentdb.AppointmentDate = appointment.AppointmentDate;
                 appointmentdb.AppointmentTime = appointment.AppointmentTime;
                 appointmentdb.Status = appointment.Status;
                 appointmentdb.Purpose = appointment.Purpose;
-
+                appointmentdb.Type = appointment.Type;
+                appointment.DoctorId = appointment.DoctorId;
             }
+            return appointmentdb;
         }
     }
 }

@@ -31,8 +31,6 @@ namespace MalamuleleHealth.Web.Controllers
             return Ok(ap);
         }
 
-
-
         [HttpGet("appointmentId")]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
         [ProducesResponseType(400, Type = typeof(AppointmentDto))]
@@ -76,7 +74,7 @@ namespace MalamuleleHealth.Web.Controllers
         [HttpPut("appointmentId")]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
         [ProducesResponseType(400, Type = typeof(AppointmentDto))]
-        [Authorize]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> UpdateAppointment(Guid appointmentId, [FromBody] AppointmentDto appointment)
         {
             if (appointment == null)
@@ -89,18 +87,18 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
+            if (GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
             {
                 var apt = mapper.Map<Appointment>(appointment);
-                unitofWork.Appointment.Update(apt);
+                var updated = await unitofWork.Appointment.UpdateAsync(apt);
                 unitofWork.Save();
 
-            }else
+                return Ok(updated);
+            }
+            else
             {
                 return NotFound();
             }
-
-            return NoContent();
         }
 
 
@@ -119,7 +117,9 @@ namespace MalamuleleHealth.Web.Controllers
 
             unitofWork.Appointment.Remove(ap);
             unitofWork.Save();
-            return NoContent();
+
+            var response = new { Message = "Appointment Removed" };
+            return Ok(response);
         }
     }
 }

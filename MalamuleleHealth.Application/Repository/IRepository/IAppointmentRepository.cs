@@ -9,6 +9,6 @@ namespace MalamuleleHealth.Application.Repository.IRepository
 {
     public interface IAppointmentRepository : IGenericRepository<Appointment>
     {
-        void Update(Appointment appointment);
+        Task<Appointment> UpdateAsync(Appointment appointment);
     }
 }

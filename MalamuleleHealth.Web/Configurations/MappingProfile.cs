@@ -3,6 +3,7 @@ using DataInterface.Domain;
 using MalamuleleHealth.EFCore.Application;
 using MalamuleleHealth.Web.Configurations.Dto;
 using MalamuleleHealth.Web.Configurations.Dto.Appointment;
+using MalamuleleHealth.Web.Configurations.Dto.Invoice;
 using MalamuleleHealth.Web.Configurations.Dto.User;
 
 namespace MalamuleleHealth.Web.Configurations
@@ -21,6 +22,11 @@ namespace MalamuleleHealth.Web.Configurations
 
             //Appointment
             CreateMap<AddAppointmentDto, Appointment>().ReverseMap();
+            CreateMap<AppointmentDto, Appointment>().ReverseMap();
+
+            //Invoice
+            CreateMap<InvoiceDto, Invoice>().ReverseMap();
+
         }
 
     }

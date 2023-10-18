@@ -1,5 +1,7 @@
-﻿using DataInterface.Domain;
+﻿using AutoMapper;
+using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
+using MalamuleleHealth.Web.Configurations.Dto.Invoice;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +14,16 @@ namespace MalamuleleHealth.Web.Controllers
     public class InvoiceController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;
+        private readonly IMapper mapper;
 
-        public InvoiceController(IUnitofWork unitofWork)
+        public InvoiceController(IUnitofWork unitofWork,IMapper mapper)
         {
             this.unitofWork = unitofWork;
+            this.mapper = mapper;
         }
 
         [HttpGet(Name = "GetInvoices")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Invoice>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<InvoiceDto>))]
         public async Task<IActionResult> GetInvoices()
         {
             var ivc = unitofWork.Invoice.GetList().GetAwaiter().GetResult();
@@ -29,9 +33,9 @@ namespace MalamuleleHealth.Web.Controllers
 
 
         [HttpGet("invoiceId")]
-        [ProducesResponseType(200, Type = typeof(Invoice))]
-        [ProducesResponseType(400, Type = typeof(Invoice))]
-        [ProducesResponseType(404, Type = typeof(Invoice))]
+        [ProducesResponseType(200, Type = typeof(InvoiceDto))]
+        [ProducesResponseType(400, Type = typeof(InvoiceDto))]
+        [ProducesResponseType(404, Type = typeof(InvoiceDto))]
         public async Task<IActionResult> GetInvoice(Guid invoiceId)
         {
             var ivc = unitofWork.Invoice.Get(i => i.Id == invoiceId).GetAwaiter().GetResult();   
@@ -44,9 +48,9 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200, Type = typeof(Invoice))]
-        [ProducesResponseType(400, Type = typeof(Invoice))]
-        public async Task<IActionResult> AddInvoice([FromBody] Invoice invoice)
+        [ProducesResponseType(200, Type = typeof(InvoiceDto))]
+        [ProducesResponseType(400, Type = typeof(InvoiceDto))]
+        public async Task<IActionResult> AddInvoice([FromBody] InvoiceDto invoice)
         {
             if (invoice == null)
             {
@@ -58,7 +62,9 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Invoice.Add(invoice);
+
+            var invc = mapper.Map<Invoice>(invoice);
+            unitofWork.Invoice.Add(invc);
             unitofWork.Save();
 
             return NoContent();
