@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataInterface.Domain
 {
@@ -25,8 +26,10 @@ namespace DataInterface.Domain
         public Guid MedicalTestId { get; set; }
         public MedicalTest MedicalTests { get; set; }
 
+
+        [Required(ErrorMessage = "Patient is Required")]
         public string PatientId { get; set; }
-        public ApplicationUser Patient { get; set; }
+        public User Patient { get; set; }
 
     }
 }

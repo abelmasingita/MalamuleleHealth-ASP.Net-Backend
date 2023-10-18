@@ -1,5 +1,7 @@
-﻿using DataInterface.Domain;
+﻿using AutoMapper;
+using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
+using MalamuleleHealth.Web.Configurations.Dto.Appointment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +13,12 @@ namespace MalamuleleHealth.Web.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;
+        private readonly IMapper mapper;
 
-        public AppointmentController(IUnitofWork unitofWork)
+        public AppointmentController(IUnitofWork unitofWork, IMapper mapper)
         {
             this.unitofWork = unitofWork;
+            this.mapper = mapper;
         }
 
         [HttpGet(Name = "GetAppointments")]
@@ -45,9 +49,9 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200, Type = typeof(Appointment))]
-        [ProducesResponseType(400, Type = typeof(Appointment))]
-        public async Task<IActionResult> AddAppointment([FromBody] Appointment appointment)
+        [ProducesResponseType(200, Type = typeof(AddAppointmentDto))]
+        [ProducesResponseType(400, Type = typeof(AddAppointmentDto))]
+        public async Task<IActionResult> AddAppointment([FromBody] AddAppointmentDto appointment)
         {
             if (appointment == null)
             {
@@ -58,8 +62,10 @@ namespace MalamuleleHealth.Web.Controllers
             {
                 return BadRequest(ModelState);
             }
+  
+            var apt = mapper.Map<Appointment>(appointment);
 
-            unitofWork.Appointment.Add(appointment);
+            unitofWork.Appointment.Add(apt);
             unitofWork.Save();
 
             return NoContent();

@@ -19,12 +19,12 @@ namespace MalamuleleHealth.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
         private readonly IConfiguration _configuration;
-        private ApplicationUser _user;
+        private User _user;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, IMapper mapper, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.mapper = mapper;
@@ -39,7 +39,7 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = mapper.Map<ApplicationUser>(NewUser);
+            var user = mapper.Map<User>(NewUser);
             var result = await userManager.CreateAsync(user, NewUser.Password);
 
             if (!result.Succeeded)
@@ -50,11 +50,13 @@ namespace MalamuleleHealth.Web.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            await userManager.AddToRoleAsync(user, "Patient");
+            await userManager.AddToRoleAsync(user, "Doctor");
 
             return Ok();
 
-        }
+
+
+    }
 
 
         [HttpPost("Login")]

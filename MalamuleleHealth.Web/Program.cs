@@ -27,7 +27,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 //}).AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
 
 
-builder.Services.AddIdentityCore<ApplicationUser>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("MalaHealthAPI").AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddTokenProvider<DataProtectorTokenProvider<User>>("MalaHealthAPI").AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
 
 //jwt Auth
 builder.Services.AddAuthentication(options =>

@@ -27,6 +27,6 @@ namespace DataInterface.Domain
         public ICollection<MedicalTest> MedicalTests { get; set; }
 
         [DisplayName("Person")]
-        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public ICollection<User> ApplicationUsers { get; set; }
     }
 }

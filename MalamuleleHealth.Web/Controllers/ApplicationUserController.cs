@@ -19,10 +19,10 @@ namespace MalamuleleHealth.Web.Controllers
     //[Authorize]
     public class ApplicationUserController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public ApplicationUserController(UserManager<User> userManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.mapper = mapper;

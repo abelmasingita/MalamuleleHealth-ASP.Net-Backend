@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalamuleleHealth.EFCore.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20231016224519_modelOptimisation")]
-    partial class modelOptimisation
+    [Migration("20231018111220_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,273 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DataInterface.Domain.ApplicationUser", b =>
+            modelBuilder.Entity("DataInterface.Domain.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Bed", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Availability")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WardId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WardId");
+
+                    b.ToTable("Beds");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("TotalAmount")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.MedicalHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DiagnosisDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MedicalCondition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Treatment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("MedicalHistories");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.MedicalTest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TestName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("MedicalTests");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Payment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("real");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Prescription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Instructions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PrescriptionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Prescriptions");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.TestResult", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MedicalTestId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ResultDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TestDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedicalTestId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("TestResults");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -39,6 +305,9 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -101,6 +370,8 @@ namespace MalamuleleHealth.EFCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -112,274 +383,20 @@ namespace MalamuleleHealth.EFCore.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("DataInterface.Domain.Appointment", b =>
-                {
-                    b.Property<Guid>("AppointmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AppointmentTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Purpose")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AppointmentId");
-
-                    b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Bed", b =>
-                {
-                    b.Property<Guid>("BedId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Availability")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("WardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BedId");
-
-                    b.HasIndex("WardId");
-
-                    b.ToTable("Beds");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Department", b =>
-                {
-                    b.Property<Guid>("DepartmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Invoice", b =>
-                {
-                    b.Property<Guid>("InvoiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PatientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("TotalAmount")
-                        .HasColumnType("real");
-
-                    b.HasKey("InvoiceId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.MedicalHistory", b =>
-                {
-                    b.Property<Guid>("MedicalHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DiagnosisDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MedicalCondition")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Treatment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MedicalHistoryId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("MedicalHistories");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.MedicalTest", b =>
-                {
-                    b.Property<Guid>("MedicalTestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("Cost")
-                        .HasColumnType("real");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TestName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MedicalTestId");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("MedicalTests");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Message", b =>
-                {
-                    b.Property<Guid>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AppointmentTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Purpose")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MessageId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Payment", b =>
-                {
-                    b.Property<Guid>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("Amount")
-                        .HasColumnType("real");
-
-                    b.Property<string>("PatientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PaymentId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.Prescription", b =>
-                {
-                    b.Property<Guid>("PrescriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AppointmentId")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Instructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Medication")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PrescriptionDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PrescriptionId");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("Prescriptions");
-                });
-
-            modelBuilder.Entity("DataInterface.Domain.TestResult", b =>
-                {
-                    b.Property<Guid>("TestResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MedicalTestId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PatientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ResultDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TestDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("TestResultId");
-
-                    b.HasIndex("MedicalTestId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("TestResults");
-                });
-
             modelBuilder.Entity("DataInterface.Domain.Ward", b =>
                 {
-                    b.Property<Guid>("WardId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DepartmentId")
+                    b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("WardId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
@@ -411,50 +428,6 @@ namespace MalamuleleHealth.EFCore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "890c9556-b150-42dd-92eb-f0b07db6d99f",
-                            ConcurrencyStamp = "1182eb00-0929-4a4f-b97b-29917583cb23",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "69dd46b9-1d56-4eb9-954b-7f0d31cfbd2c",
-                            ConcurrencyStamp = "e54e0c11-b2e7-40fe-81e7-11dcb49181c4",
-                            Name = "Doctor",
-                            NormalizedName = "DOCTOR"
-                        },
-                        new
-                        {
-                            Id = "b053c215-4107-45fc-9481-779fcf4a2579",
-                            ConcurrencyStamp = "5afb00e6-c8b9-4548-9297-98488562ad74",
-                            Name = "Nurse",
-                            NormalizedName = "NURSE"
-                        },
-                        new
-                        {
-                            Id = "18ca512f-eccc-4690-8d7c-d3878bc8c196",
-                            ConcurrencyStamp = "1d386ee8-f576-47cf-9d2e-bf785896fe69",
-                            Name = "Patient",
-                            NormalizedName = "PATIENT"
-                        },
-                        new
-                        {
-                            Id = "783341c6-b6d1-45f6-885d-8a04f8bbd7a4",
-                            ConcurrencyStamp = "8a0511f6-f7fc-4c73-a64d-e1555680cf6f",
-                            Name = "Pharmacist",
-                            NormalizedName = "PHARMACIST"
-                        },
-                        new
-                        {
-                            Id = "72b764be-8f61-4d57-99e6-dc3350059218",
-                            ConcurrencyStamp = "9bb632b0-0080-4eff-b2ec-30c2e6747897",
-                            Name = "LabTechnician",
-                            NormalizedName = "LATTECHNICIAN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -566,7 +539,7 @@ namespace MalamuleleHealth.EFCore.Migrations
             modelBuilder.Entity("DataInterface.Domain.Bed", b =>
                 {
                     b.HasOne("DataInterface.Domain.Ward", "Wards")
-                        .WithMany()
+                        .WithMany("Beds")
                         .HasForeignKey("WardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -576,18 +549,22 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("DataInterface.Domain.Invoice", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", "Patient")
+                    b.HasOne("DataInterface.Domain.User", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("DataInterface.Domain.MedicalHistory", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", "Patient")
+                    b.HasOne("DataInterface.Domain.User", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
                 });
@@ -605,9 +582,11 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("DataInterface.Domain.Payment", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", "Patient")
+                    b.HasOne("DataInterface.Domain.User", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
                 });
@@ -620,9 +599,11 @@ namespace MalamuleleHealth.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataInterface.Domain.ApplicationUser", "Doctor")
+                    b.HasOne("DataInterface.Domain.User", "Doctor")
                         .WithMany()
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Appointment");
 
@@ -637,20 +618,33 @@ namespace MalamuleleHealth.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataInterface.Domain.ApplicationUser", "Patient")
+                    b.HasOne("DataInterface.Domain.User", "Patient")
                         .WithMany()
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MedicalTests");
 
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("DataInterface.Domain.Ward", b =>
+            modelBuilder.Entity("DataInterface.Domain.User", b =>
                 {
                     b.HasOne("DataInterface.Domain.Department", null)
-                        .WithMany("Wards")
+                        .WithMany("ApplicationUsers")
                         .HasForeignKey("DepartmentId");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Ward", b =>
+                {
+                    b.HasOne("DataInterface.Domain.Department", "Departments")
+                        .WithMany("Wards")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -664,7 +658,7 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", null)
+                    b.HasOne("DataInterface.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -673,7 +667,7 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", null)
+                    b.HasOne("DataInterface.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -688,7 +682,7 @@ namespace MalamuleleHealth.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataInterface.Domain.ApplicationUser", null)
+                    b.HasOne("DataInterface.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -697,7 +691,7 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("DataInterface.Domain.ApplicationUser", null)
+                    b.HasOne("DataInterface.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -706,6 +700,8 @@ namespace MalamuleleHealth.EFCore.Migrations
 
             modelBuilder.Entity("DataInterface.Domain.Department", b =>
                 {
+                    b.Navigation("ApplicationUsers");
+
                     b.Navigation("MedicalTests");
 
                     b.Navigation("Wards");
@@ -714,6 +710,11 @@ namespace MalamuleleHealth.EFCore.Migrations
             modelBuilder.Entity("DataInterface.Domain.MedicalTest", b =>
                 {
                     b.Navigation("TestResults");
+                });
+
+            modelBuilder.Entity("DataInterface.Domain.Ward", b =>
+                {
+                    b.Navigation("Beds");
                 });
 #pragma warning restore 612, 618
         }

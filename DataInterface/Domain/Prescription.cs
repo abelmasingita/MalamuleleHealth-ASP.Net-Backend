@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataInterface.Domain
 {
@@ -31,7 +32,9 @@ namespace DataInterface.Domain
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
 
+        [Required(ErrorMessage = "Doctor is Required")]
         public string DoctorId { get; set; }
-        public ApplicationUser Doctor { get; set; }
+        public User Doctor { get; set; }
+
     }
 }

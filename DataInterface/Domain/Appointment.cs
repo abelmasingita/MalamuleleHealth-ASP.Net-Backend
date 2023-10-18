@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataInterface.Domain
 {
@@ -26,10 +27,14 @@ namespace DataInterface.Domain
 
 
         //relationships
-        public string PatientId { get; set; } 
-        public ApplicationUser Patient { get; set; } 
+        [Required(ErrorMessage = "Patient is Required")]
+        public string PatientId { get; set; }
+        [NotMapped]
+        public User Patient { get; set; }
 
-        public string DoctorId { get; set; } 
-        public ApplicationUser Doctor { get; set; } 
+        [Required(ErrorMessage = "Doctor is Required")]
+        public string DoctorId { get; set; }
+        [NotMapped]
+        public User Doctor { get; set; } 
     }
 }

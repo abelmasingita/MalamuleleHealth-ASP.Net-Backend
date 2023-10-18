@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MalamuleleHealth.EFCore
 {
-    public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDBContext : IdentityDbContext<User>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
@@ -41,54 +41,7 @@ namespace MalamuleleHealth.EFCore
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new PrescriptionConfiguration());
-            modelBuilder.ApplyConfiguration(new TestResultConfiguration());
-         
-
-
-
-            modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Patient)
-                .WithMany()
-                .HasForeignKey(a => a.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading deletes
-
-            modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Doctor)
-                .WithMany()
-                .HasForeignKey(a => a.DoctorId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Invoice>()
-                .HasOne(a => a.Patient)
-                .WithMany()
-                .HasForeignKey(a => a.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            modelBuilder.Entity<MedicalHistory>()
-                .HasOne(a => a.Patient)
-                .WithMany()
-                .HasForeignKey(a => a.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            modelBuilder.Entity<Payment>()
-                .HasOne(a => a.Patient)
-                .WithMany()
-                .HasForeignKey(a => a.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TestResult>()
-                .HasOne(a => a.Patient)
-                .WithMany()
-                .HasForeignKey(a => a.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Prescription>()
-                .HasOne(a => a.Doctor)
-                .WithMany()
-                .HasForeignKey(a => a.DoctorId)
-                .OnDelete(DeleteBehavior.Restrict);*/
+            modelBuilder.ApplyConfiguration(new TestResultConfiguration());*/
 
         }
 

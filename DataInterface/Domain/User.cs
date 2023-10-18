@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataInterface.Domain
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,10 +20,10 @@ namespace DataInterface.Domain
 
 
         //relationships
-        public ICollection<Appointment> Appointments { get; set; }
-        public ICollection<Prescription> Prescriptions { get; set; }
-        public ICollection<Invoice> Invoices { get; set; }
-        public ICollection<TestResult> TestResults { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<TestResult> TestResults { get; set; }
     }
 }
 

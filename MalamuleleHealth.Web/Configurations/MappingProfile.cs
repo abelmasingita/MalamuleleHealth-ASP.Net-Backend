@@ -2,6 +2,7 @@
 using DataInterface.Domain;
 using MalamuleleHealth.EFCore.Application;
 using MalamuleleHealth.Web.Configurations.Dto;
+using MalamuleleHealth.Web.Configurations.Dto.Appointment;
 using MalamuleleHealth.Web.Configurations.Dto.User;
 
 namespace MalamuleleHealth.Web.Configurations
@@ -11,11 +12,15 @@ namespace MalamuleleHealth.Web.Configurations
 
         public MappingProfile()
         {
-            CreateMap<Registration, ApplicationUser>()
-          .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
-            CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
-            CreateMap<ApplicationUser, UpdateApplicationUserDto>().ReverseMap();
+            //User
+            CreateMap<Registration, User>()
+          .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+            CreateMap<User, ApplicationUserDto>().ReverseMap();
+            CreateMap<User, UpdateApplicationUserDto>().ReverseMap();
+
+            //Appointment
+            CreateMap<AddAppointmentDto, Appointment>().ReverseMap();
         }
 
     }
