@@ -20,13 +20,13 @@ namespace MalamuleleHealth.Web.Controllers
     public class ApplicationUserController : ControllerBase
     {
         private readonly UserManager<User> userManager;
-        private readonly RoleManager<User> roleManager;
+
         private readonly IMapper mapper;
 
-        public ApplicationUserController(UserManager<User> userManager,RoleManager<User> roleManager, IMapper mapper)
+        public ApplicationUserController(UserManager<User> userManager, IMapper mapper)
         {
             this.userManager = userManager;
-            this.roleManager = roleManager;
+
             this.mapper = mapper;
         }
 
@@ -90,39 +90,6 @@ namespace MalamuleleHealth.Web.Controllers
             }
         }
 
-        [HttpPut("UpdateUserRole")]
-        [ProducesResponseType(200, Type = typeof(UpdateApplicationUserDto))]
-        [ProducesResponseType(400, Type = typeof(UpdateApplicationUserDto))]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> UpdateUserRole(string userId, [FromBody] UpdateUserRoleDto userUpdate)
-        {
-            if (userId == null || userUpdate == null) { return BadRequest(); }
-
-            var user = await userManager.FindByIdAsync(userId);
-
-            if (user == null) { return NotFound(); }
-
-            
-            var mappedUser = mapper.Map<UpdateApplicationUserDto>(user);
-
-             user.FirstName = mappedUser.FirstName;
-             user.LastName = mappedUser.LastName;
-             user.PhoneNumber = mappedUser.PhoneNumber;
-             user.LockoutEnabled = mappedUser.LockoutEnabled;
-
-             var result = await userManager.UpdateAsync(user);
-
-             if (result.Succeeded)
-             {
-                 // User deleted successfully
-                 return Ok(result);
-             }
-             else
-             {
-                 return BadRequest(result.Errors);
-             }
-        }
-
         [HttpDelete("DeleteUser")]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteUser(string userId)
@@ -138,13 +105,48 @@ namespace MalamuleleHealth.Web.Controllers
             if (result.Succeeded)
             {
                 // User deleted successfully
-                return Ok(result); 
+                return Ok(result);
             }
             else
             {
                 return BadRequest(result.Errors);
             }
         }
+
+
+
+        //[HttpPut("UpdateUserRole")]
+        //[ProducesResponseType(200, Type = typeof(UpdateApplicationUserDto))]
+        //[ProducesResponseType(400, Type = typeof(UpdateApplicationUserDto))]
+        //[Authorize(Roles = "Administrator")]
+        //public async Task<IActionResult> UpdateUserRole(string userId, [FromBody] UpdateUserRoleDto userUpdate)
+        //{
+        //    if (userId == null || userUpdate == null) { return BadRequest(); }
+
+        //    var user = await userManager.FindByIdAsync(userId);
+
+        //    if (user == null) { return NotFound(); }
+
+
+        //    var mappedUser = mapper.Map<UpdateApplicationUserDto>(user);
+
+        //     user.FirstName = mappedUser.FirstName;
+        //     user.LastName = mappedUser.LastName;
+        //     user.PhoneNumber = mappedUser.PhoneNumber;
+        //     user.LockoutEnabled = mappedUser.LockoutEnabled;
+
+        //     var result = await userManager.UpdateAsync(user);
+
+        //     if (result.Succeeded)
+        //     {
+        //         // User deleted successfully
+        //         return Ok(result);
+        //     }
+        //     else
+        //     {
+        //         return BadRequest(result.Errors);
+        //     }
+        //}
 
     }
 
