@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using DataInterface.Configurations.Dto.ApplicationUser;
+using DataInterface.Configurations.Dto.Appointment;
+using DataInterface.Configurations.Dto.Invoice;
+using DataInterface.Configurations.Dto.User;
 using DataInterface.Domain;
-using MalamuleleHealth.EFCore.Application;
-using MalamuleleHealth.Web.Configurations.Dto;
-using MalamuleleHealth.Web.Configurations.Dto.Appointment;
-using MalamuleleHealth.Web.Configurations.Dto.Invoice;
-using MalamuleleHealth.Web.Configurations.Dto.User;
 
-namespace MalamuleleHealth.Web.Configurations
+
+namespace DataInterface.Configurations
 {
     public class MappingProfile : Profile
     {

@@ -2,13 +2,12 @@ using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.Application.Repository;
 using MalamuleleHealth.EFCore;
 using Microsoft.EntityFrameworkCore;
-using MalamuleleHealth.EFCore.Application;
 using Microsoft.AspNetCore.Identity;
-using MalamuleleHealth.Web.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using DataInterface.Domain;
+using DataInterface.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 

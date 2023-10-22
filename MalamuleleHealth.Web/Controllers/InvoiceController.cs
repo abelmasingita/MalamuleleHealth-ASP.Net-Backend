@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using DataInterface.Configurations.Dto.Invoice;
 using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
-using MalamuleleHealth.Web.Configurations.Dto.Invoice;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

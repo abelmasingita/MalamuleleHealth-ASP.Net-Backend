@@ -1,4 +1,4 @@
-﻿namespace MalamuleleHealth.Web.Configurations.Dto.User
+﻿namespace DataInterface.Configurations.Dto.User
 {
     public class AuthResponseDto
     {

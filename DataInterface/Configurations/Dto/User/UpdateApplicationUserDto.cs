@@ -1,4 +1,4 @@
-﻿namespace MalamuleleHealth.Web.Configurations.Dto
+﻿namespace DataInterface.Configurations.Dto.User
 {
     public class UpdateApplicationUserDto
     {

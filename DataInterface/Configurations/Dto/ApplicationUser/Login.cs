@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MalamuleleHealth.EFCore.Application
+namespace DataInterface.Configurations.Dto.ApplicationUser
 {
     public class Login
     {

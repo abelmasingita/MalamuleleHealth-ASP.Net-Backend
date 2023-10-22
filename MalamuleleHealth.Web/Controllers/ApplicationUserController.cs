@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
+using DataInterface.Configurations.Dto.User;
 using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using MalamuleleHealth.EFCore;
-using MalamuleleHealth.EFCore.Application;
-using MalamuleleHealth.Web.Configurations.Dto;
-using MalamuleleHealth.Web.Configurations.Dto.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
