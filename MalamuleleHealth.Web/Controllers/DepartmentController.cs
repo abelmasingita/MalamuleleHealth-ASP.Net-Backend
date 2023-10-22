@@ -1,4 +1,6 @@
-﻿using DataInterface.Domain;
+﻿using AutoMapper;
+using DataInterface.Configurations.Dto.Department;
+using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,45 +10,54 @@ namespace MalamuleleHealth.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class DepartmentController : ControllerBase
     {
         private readonly IUnitofWork unitofWork;
+        private readonly IMapper mapper;
 
-        public DepartmentController(IUnitofWork unitofWork)
+        public DepartmentController(IUnitofWork unitofWork, IMapper mapper)
         {
             this.unitofWork = unitofWork;
+            this.mapper = mapper;
         }
 
         [HttpGet(Name = "GetDepartments")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Department>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<DepartmentDto>))]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> GetDepartments()
         {
-            var dp = unitofWork.Department.GetList().GetAwaiter().GetResult();
+            var dp = await unitofWork.Department.GetList();
 
-            return Ok(dp);
+            var dep = mapper.Map<List<DepartmentDto>>(dp);
+
+            return Ok(dep);
         }
 
 
         [HttpGet("departmentId")]
-        [ProducesResponseType(200, Type = typeof(Department))]
-        [ProducesResponseType(400, Type = typeof(Department))]
-        [ProducesResponseType(404, Type = typeof(Department))]
+        [ProducesResponseType(200, Type = typeof(DepartmentDto))]
+        [ProducesResponseType(400, Type = typeof(DepartmentDto))]
+        [ProducesResponseType(404, Type = typeof(DepartmentDto))]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> GetDepartment(Guid departmentId)
         {
-            var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();   
-            if (dp == null)
+            var dp = await unitofWork.Department.Get(d => d.Id == departmentId);
+
+            var dep = mapper.Map<DepartmentDto>(dp);
+
+            if (dep == null)
             {
                 return NotFound();
             }
 
-            return Ok(dp);
+            return Ok(dep);
         }
 
         [HttpPost]
-        [ProducesResponseType(200, Type = typeof(Department))]
-        [ProducesResponseType(400, Type = typeof(Department))]
-        public async Task<IActionResult> AddDepartment([FromBody] Department createDepartment)
+        [ProducesResponseType(200, Type = typeof(AddDepartmentDto))]
+        [ProducesResponseType(400, Type = typeof(AddDepartmentDto))]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> AddDepartment([FromBody] AddDepartmentDto createDepartment)
         {
             if (createDepartment == null)
             {
@@ -58,7 +69,9 @@ namespace MalamuleleHealth.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            unitofWork.Department.Add(createDepartment);
+            var dp = mapper.Map<Department>(createDepartment);
+
+            unitofWork.Department.Add(dp);
             unitofWork.Save();
 
             return NoContent();
@@ -67,9 +80,10 @@ namespace MalamuleleHealth.Web.Controllers
 
 
         [HttpPut("departmentId")]
-        [ProducesResponseType(200, Type = typeof(Department))]
-        [ProducesResponseType(400, Type = typeof(Department))]
-        public async Task<IActionResult> UpdateDepartment(Guid departmentId, [FromBody] Department department)
+        [ProducesResponseType(200, Type = typeof(DepartmentDto))]
+        [ProducesResponseType(400, Type = typeof(DepartmentDto))]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> UpdateDepartment(Guid departmentId, [FromBody] DepartmentDto department)
         {
             if (department == null)
             {
@@ -83,15 +97,17 @@ namespace MalamuleleHealth.Web.Controllers
 
             if (GetDepartment(departmentId).GetAwaiter().GetResult() != null)
             {
-                unitofWork.Department.Update(department);
+                var dp = mapper.Map<Department>(department);
+                var updated = await unitofWork.Department.UpdateAsync(dp);
                 unitofWork.Save();
+
+                return Ok(updated);
             }
             else
             {
                 return NotFound();
             }
 
-            return NoContent();
         }
 
 
@@ -99,6 +115,7 @@ namespace MalamuleleHealth.Web.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RemoveDepartment(Guid departmentId)
         {
             var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();
@@ -109,7 +126,10 @@ namespace MalamuleleHealth.Web.Controllers
 
             unitofWork.Department.Remove(dp);
             unitofWork.Save();
-            return NoContent();
+
+
+            var response = new { Message = "Department Removed" };
+            return Ok(response);
         }
     }
 }

@@ -19,15 +19,18 @@ namespace MalamuleleHealth.Application.Repository
             this.dbContext = dbContext;
         }
 
-        public void Update(Department department)
+
+        public async Task<Department> UpdateAsync(Department department)
         {
-            var dp = dbContext.Departments.FirstAsync(d => d.Id == department.Id).GetAwaiter().GetResult();
+            var dp = await dbContext.Departments.FirstAsync(d => d.Id == department.Id);
 
             if (dp != null)
             {
                 dp.Name = department.Name;
-                dp.Description = department.Description;    
+                dp.Description = department.Description;
             }
+
+            return (dp);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataInterface.Configurations.Dto.ApplicationUser;
 using DataInterface.Configurations.Dto.Appointment;
+using DataInterface.Configurations.Dto.Department;
 using DataInterface.Configurations.Dto.Invoice;
 using DataInterface.Configurations.Dto.User;
 using DataInterface.Domain;
@@ -26,6 +27,10 @@ namespace DataInterface.Configurations
 
             //Invoice
             CreateMap<InvoiceDto, Invoice>().ReverseMap();
+
+            //Department
+            CreateMap<DepartmentDto, Department>().ReverseMap();
+            CreateMap<AddDepartmentDto, Department>().ReverseMap();
 
         }
 

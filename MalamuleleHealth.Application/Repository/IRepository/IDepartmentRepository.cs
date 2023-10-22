@@ -9,6 +9,6 @@ namespace MalamuleleHealth.Application.Repository.IRepository
 {
     public interface IDepartmentRepository : IGenericRepository<Department>
     {
-        void Update(Department department);
+        Task<Department> UpdateAsync(Department department);
     }
 }
