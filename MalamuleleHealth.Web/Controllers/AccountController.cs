@@ -52,7 +52,9 @@ namespace MalamuleleHealth.Web.Controllers
             }
             await userManager.AddToRoleAsync(user, "Patient");
 
-            return Ok();
+            var mappedUser = mapper.Map<ApplicationUserDto>(user);
+
+            return Ok(mappedUser);
 
     }
 
@@ -60,17 +62,24 @@ namespace MalamuleleHealth.Web.Controllers
         public async Task<AuthResponseDto> Login([FromBody] Login login)
         {
             _user = await userManager.FindByEmailAsync(login.Email);
+
+            if (_user == null)
+            {
+                return new AuthResponseDto { ErrorMessage = "User with the provided email does not exist." };
+            }
+
             bool isValidUser = await userManager.CheckPasswordAsync(_user, login.Password);
 
-            if (_user == null || isValidUser == false)
+            if (!isValidUser)
             {
-                return null;
+                return new AuthResponseDto { ErrorMessage = "Invalid password." };
             }
+
             var token = await GenerateToken();
 
             if (token == null)
             {
-                return null;
+                return new AuthResponseDto { ErrorMessage = "Failed to generate a token." };
             }
 
             return new AuthResponseDto { Token = token, UserId = _user.Id };
