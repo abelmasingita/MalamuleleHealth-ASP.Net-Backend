@@ -3,6 +3,7 @@ using MalamuleleHealth.Application.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.Intrinsics.Arm;
 
 namespace MalamuleleHealth.Web.Controllers
 {
@@ -41,7 +42,8 @@ namespace MalamuleleHealth.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(bed);
+
+            return Ok(new { bed });
         }
 
         [HttpPost]

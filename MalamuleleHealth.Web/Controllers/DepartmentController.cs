@@ -50,7 +50,7 @@ namespace MalamuleleHealth.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(dep);
+            return Ok(new { dep });
         }
 
         [HttpPost]

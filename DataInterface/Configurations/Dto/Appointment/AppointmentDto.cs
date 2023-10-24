@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,12 @@ namespace DataInterface.Configurations.Dto.Appointment
 
         [DisplayName("Appointment Type")]
         public string Type { get; set; }
+
+        //relationships
+        [Required(ErrorMessage = "Patient is Required")]
+        public string PatientId { get; set; }
+
+        [Required(ErrorMessage = "Doctor is Required")]
+        public string DoctorId { get; set; }
     }
 }
