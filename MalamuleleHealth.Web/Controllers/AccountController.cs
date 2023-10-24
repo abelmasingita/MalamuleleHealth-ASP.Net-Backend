@@ -50,7 +50,7 @@ namespace MalamuleleHealth.Web.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            await userManager.AddToRoleAsync(user, "Administrator");
+            await userManager.AddToRoleAsync(user, "Patient");
 
             return Ok();
 

@@ -18,13 +18,13 @@ namespace MalamuleleHealth.Web.Controllers
     public class ApplicationUserController : ControllerBase
     {
         private readonly UserManager<User> userManager;
-
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IMapper mapper;
 
-        public ApplicationUserController(UserManager<User> userManager, IMapper mapper)
+        public ApplicationUserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             this.userManager = userManager;
-
+            this.roleManager = roleManager;
             this.mapper = mapper;
         }
 
@@ -112,39 +112,94 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
+        [HttpGet("GetDoctors")]
+        public async Task<IActionResult> GetDoctors()
+        {
+            var doctors = await userManager.GetUsersInRoleAsync("Doctor");
 
-        //[HttpPut("UpdateUserRole")]
-        //[ProducesResponseType(200, Type = typeof(UpdateApplicationUserDto))]
-        //[ProducesResponseType(400, Type = typeof(UpdateApplicationUserDto))]
-        //[Authorize(Roles = "Administrator")]
-        //public async Task<IActionResult> UpdateUserRole(string userId, [FromBody] UpdateUserRoleDto userUpdate)
-        //{
-        //    if (userId == null || userUpdate == null) { return BadRequest(); }
+            var mappedDoctors = mapper.Map<List<ApplicationUserDto>>(doctors);
+            return Ok(mappedDoctors);
+        }
 
-        //    var user = await userManager.FindByIdAsync(userId);
+        [HttpGet("GetNurses")]
+        public async Task<IActionResult> GetNurses()
+        {
+            var nurses = await userManager.GetUsersInRoleAsync("Nurse");
 
-        //    if (user == null) { return NotFound(); }
+            var mappedNurses = mapper.Map<List<ApplicationUserDto>>(nurses);
+            return Ok(mappedNurses);
+        }
+        [HttpGet("GetLabTechnician")]
+        public async Task<IActionResult> GetLabTechnicians()
+        {
+            var labt = await userManager.GetUsersInRoleAsync("LabTechnician");
 
+            var mappedLabts = mapper.Map<List<ApplicationUserDto>>(labt);
+            return Ok(mappedLabts);
+        }
+        [HttpGet("GetPatients")]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician")]
+        public async Task<IActionResult> GetPatients()
+        {
+            var pts = await userManager.GetUsersInRoleAsync("Patient");
 
-        //    var mappedUser = mapper.Map<UpdateApplicationUserDto>(user);
+            var mappedPts = mapper.Map<List<ApplicationUserDto>>(pts);
+            return Ok(mappedPts);
+        }
+        [HttpGet("GetPharmacists")]
+        public async Task<IActionResult> GetPharmacists()
+        {
+            var pms = await userManager.GetUsersInRoleAsync("Pharmacist");
 
-        //     user.FirstName = mappedUser.FirstName;
-        //     user.LastName = mappedUser.LastName;
-        //     user.PhoneNumber = mappedUser.PhoneNumber;
-        //     user.LockoutEnabled = mappedUser.LockoutEnabled;
+            var mappedPhms = mapper.Map<List<ApplicationUserDto>>(pms);
+            return Ok(mappedPhms);
+        }
+        [HttpGet("GetAdmins")]
+        [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician")]
+        public async Task<IActionResult> GetAdmins()
+        {
+            var admins = await userManager.GetUsersInRoleAsync("Administrator");
 
-        //     var result = await userManager.UpdateAsync(user);
+            var mappedAdmins = mapper.Map<List<ApplicationUserDto>>(admins);
+            return Ok(mappedAdmins);
+        }
 
-        //     if (result.Succeeded)
-        //     {
-        //         // User deleted successfully
-        //         return Ok(result);
-        //     }
-        //     else
-        //     {
-        //         return BadRequest(result.Errors);
-        //     }
-        //}
+        [HttpPost("UpdateUserRole")]
+        public async Task<IActionResult> UpdateUserRole(UpdateUserRoleDto updateModel)
+        {
+            var user = await userManager.FindByIdAsync(updateModel.UserId);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Check if the new role exists
+            if (!await roleManager.RoleExistsAsync(updateModel.NewRole))
+            {
+                return BadRequest("Role not found");
+            }
+
+            var currentRoles = await userManager.GetRolesAsync(user);
+
+            // Remove the user from current roles
+            var removeResult = await userManager.RemoveFromRolesAsync(user, currentRoles);
+
+            if (!removeResult.Succeeded)
+            {
+                return BadRequest("Failed to remove user from roles");
+            }
+
+            // Add the user to the new role
+            var addResult = await userManager.AddToRoleAsync(user, updateModel.NewRole);
+
+            if (!addResult.Succeeded)
+            {
+                return BadRequest("Failed to add user to the new role");
+            }
+
+            return Ok("User role updated successfully");
+        }
 
     }
 
