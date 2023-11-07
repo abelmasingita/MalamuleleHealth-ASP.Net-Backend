@@ -104,7 +104,7 @@ namespace MalamuleleHealth.Web.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, _user.Email),
                     new Claim("uid", _user.Id),
-                    new Claim("role", roles.FirstOrDefault()),
+                    new Claim("urol", roles.FirstOrDefault()),
             }.Union(userClaims).Union(roleClaims);
 
 
