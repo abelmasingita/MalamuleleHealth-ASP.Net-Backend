@@ -74,13 +74,14 @@ namespace MalamuleleHealth.Web.Controllers
             user.LastName = mappedUser.LastName;
             user.PhoneNumber = mappedUser.PhoneNumber;
             user.LockoutEnabled = mappedUser.LockoutEnabled;
+            user.Address = mappedUser.Address;
+            user.Specialist = mappedUser.Specialist;
 
             var result = await userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
-                // User deleted successfully
-                return Ok(result);
+                return Ok(user);
             }
             else
             {

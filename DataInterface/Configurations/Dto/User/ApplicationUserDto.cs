@@ -8,6 +8,8 @@
         public string Email { get; set; }
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
+        public string Address { get; set; }
+        public string Specialist { get; set; }
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }

@@ -82,7 +82,7 @@ namespace MalamuleleHealth.Web.Controllers
                 return new AuthResponseDto { ErrorMessage = "Failed to generate a token." };
             }
 
-            return new AuthResponseDto { Token = token, UserId = _user.Id };
+            return new AuthResponseDto { AccessToken = token, UserId = _user.Id };
 
         }
 
