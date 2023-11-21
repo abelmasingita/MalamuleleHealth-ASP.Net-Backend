@@ -113,7 +113,7 @@ namespace MalamuleleHealth.Web.Controllers
                     issuer: _configuration["JwtSettings:Issuer"],
                     audience: _configuration["JwtSettings:Audience"],
                     claims: claims,
-                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["JwtSettings:DurationInMinutes"])),
+                    expires: DateTime.Now.AddHours(Convert.ToInt32(_configuration["JwtSettings:DurationInHours"])),
                     signingCredentials: credentials
 
            );

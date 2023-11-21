@@ -26,11 +26,17 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> GetDepartments()
         {
-            var dp = await unitofWork.Department.GetList();
+            try
+            {
+                var dp = await unitofWork.Department.GetList();
+                var dep = mapper.Map<List<DepartmentDto>>(dp);
 
-            var dep = mapper.Map<List<DepartmentDto>>(dp);
-
-            return Ok(dep);
+                return Ok(dep);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
 
@@ -41,16 +47,24 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> GetDepartment(Guid departmentId)
         {
-            var dp = await unitofWork.Department.Get(d => d.Id == departmentId);
-
-            var dep = mapper.Map<DepartmentDto>(dp);
-
-            if (dep == null)
+            try
             {
-                return NotFound();
+                var dp = await unitofWork.Department.Get(d => d.Id == departmentId);
+
+                var dep = mapper.Map<DepartmentDto>(dp);
+
+                if (dep == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(dep);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.ToString());
             }
 
-            return Ok(new { dep });
         }
 
         [HttpPost]
@@ -59,22 +73,32 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddDepartment([FromBody] AddDepartmentDto createDepartment)
         {
-            if (createDepartment == null)
+
+            try
             {
-                return BadRequest();
+                if (createDepartment == null)
+                {
+                    return BadRequest();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var dp = mapper.Map<Department>(createDepartment);
+
+                unitofWork.Department.Add(dp);
+                unitofWork.Save();
+
+                var mapped = mapper.Map<DepartmentDto>(dp);
+                return Ok(mapped);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var dp = mapper.Map<Department>(createDepartment);
-
-            unitofWork.Department.Add(dp);
-            unitofWork.Save();
-
-            return NoContent();
         }
 
 
@@ -85,27 +109,35 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateDepartment(Guid departmentId, [FromBody] DepartmentDto department)
         {
-            if (department == null)
-            {
-                return BadRequest();
-            }
 
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (department == null)
+                {
+                    return BadRequest();
+                }
 
-            if (GetDepartment(departmentId).GetAwaiter().GetResult() != null)
-            {
-                var dp = mapper.Map<Department>(department);
-                var updated = await unitofWork.Department.UpdateAsync(dp);
-                unitofWork.Save();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-                return Ok(updated);
+                if (GetDepartment(departmentId).GetAwaiter().GetResult() != null)
+                {
+                    var dp = mapper.Map<Department>(department);
+                    var updated = await unitofWork.Department.UpdateAsync(dp);
+                    unitofWork.Save();
+
+                    return Ok(updated);
+                }
+                else
+                {
+                    return NotFound("Department Not Found");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                throw new Exception(ex.ToString());
             }
 
         }
@@ -118,18 +150,26 @@ namespace MalamuleleHealth.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RemoveDepartment(Guid departmentId)
         {
-            var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();
-            if (dp == null)
+            try
             {
-                return NotFound();
+                var dp = unitofWork.Department.Get(d => d.Id == departmentId).GetAwaiter().GetResult();
+                if (dp == null)
+                {
+                    return NotFound();
+                }
+
+                unitofWork.Department.Remove(dp);
+                unitofWork.Save();
+
+
+                var response = new { Message = "Department Removed" };
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
             }
 
-            unitofWork.Department.Remove(dp);
-            unitofWork.Save();
-
-
-            var response = new { Message = "Department Removed" };
-            return Ok(response);
         }
     }
 }
