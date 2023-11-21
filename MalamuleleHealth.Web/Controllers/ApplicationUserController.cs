@@ -48,7 +48,6 @@ namespace MalamuleleHealth.Web.Controllers
         {
             if (userId == null) { return BadRequest(); }
 
-            // var user = userManager.Users.ToList().FirstOrDefault(u => u.Id == userId);
             var user = await userManager.FindByIdAsync(userId);
 
             if (user == null) { return NotFound(); }
@@ -58,8 +57,8 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
         [HttpPut("UpdateUser")]
-        [ProducesResponseType(200, Type = typeof(UpdateApplicationUserDto))]
-        [ProducesResponseType(400, Type = typeof(UpdateApplicationUserDto))]
+        [ProducesResponseType(200, Type = typeof(ApplicationUserDto))]
+        [ProducesResponseType(400, Type = typeof(ApplicationUserDto))]
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician")]
         public async Task<IActionResult> UpdateUser(string userId, [FromBody] UpdateApplicationUserDto userUpdate)
         {
@@ -81,7 +80,8 @@ namespace MalamuleleHealth.Web.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(user);
+                var mapped = mapper.Map<ApplicationUserDto>(user);
+                return Ok(mapped);
             }
             else
             {
