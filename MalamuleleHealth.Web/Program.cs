@@ -54,18 +54,6 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitofWork, UnitOfWork>();
 
-// Allow requests from your React app
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder.WithOrigins("http://localhost:3000") 
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -96,12 +84,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-
+var crossO = builder.Configuration["CorsSettings:AllowedOrigin"];
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
+        builder.WithOrigins(crossO)
                .AllowAnyHeader()
                .AllowAnyMethod();
     });

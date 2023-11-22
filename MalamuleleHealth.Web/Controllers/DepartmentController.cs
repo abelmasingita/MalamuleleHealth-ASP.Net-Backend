@@ -21,7 +21,7 @@ namespace MalamuleleHealth.Web.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet(Name = "GetDepartments")]
+        [HttpGet("GetDepartments")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<DepartmentDto>))]
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> GetDepartments()
@@ -40,7 +40,7 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpGet("departmentId")]
+        [HttpGet("GetDepartment")]
         [ProducesResponseType(200, Type = typeof(DepartmentDto))]
         [ProducesResponseType(400, Type = typeof(DepartmentDto))]
         [ProducesResponseType(404, Type = typeof(DepartmentDto))]
@@ -67,11 +67,11 @@ namespace MalamuleleHealth.Web.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("AddDepartment")]
         [ProducesResponseType(200, Type = typeof(AddDepartmentDto))]
         [ProducesResponseType(400, Type = typeof(AddDepartmentDto))]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> AddDepartment([FromBody] AddDepartmentDto createDepartment)
+        public IActionResult AddDepartment([FromBody] AddDepartmentDto createDepartment)
         {
 
             try
@@ -103,7 +103,7 @@ namespace MalamuleleHealth.Web.Controllers
 
 
 
-        [HttpPut("departmentId")]
+        [HttpPut("UpdateDepartment")]
         [ProducesResponseType(200, Type = typeof(DepartmentDto))]
         [ProducesResponseType(400, Type = typeof(DepartmentDto))]
         [Authorize(Roles = "Administrator")]
@@ -143,7 +143,7 @@ namespace MalamuleleHealth.Web.Controllers
         }
 
 
-        [HttpDelete("departmentId")]
+        [HttpDelete("DeleteDepartment")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
