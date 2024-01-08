@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using DataInterface.Configurations.Dto.Appointment;
+using DataInterface.Configurations.Dto.Department;
 using DataInterface.Domain;
 using MalamuleleHealth.Application.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.Intrinsics.Arm;
 
 namespace MalamuleleHealth.Web.Controllers
 {
@@ -21,105 +23,146 @@ namespace MalamuleleHealth.Web.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet(Name = "GetAppointments")]
+        [HttpGet("GetAppointments")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AppointmentDto>))]
+        [ProducesResponseType(400, Type = typeof(IEnumerable<AppointmentDto>))]
+        [ProducesResponseType(500, Type = typeof(IEnumerable<AppointmentDto>))]
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician")]
         public async Task<IActionResult> GetAppointments()
         {
-            var ap = await unitofWork.Appointment.GetList();
+            try
+            {
+                var ap = await unitofWork.Appointment.GetList();
+                var apt = mapper.Map<List<AppointmentDto>>(ap);
 
-            return Ok(ap);
+                return Ok(apt);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
-        [HttpGet("appointmentId")]
+        [HttpGet("GetAppointment")]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
         [ProducesResponseType(400, Type = typeof(AppointmentDto))]
         [ProducesResponseType(404, Type = typeof(AppointmentDto))]
         [Authorize]
         public async Task<IActionResult> GetAppointment(Guid appointmentId)
         {
-            var ap =await unitofWork.Appointment.Get(a => a.Id == appointmentId);   
-            if (ap == null)
+            try
             {
-                return NotFound();
+                var ap = await unitofWork.Appointment.Get(a => a.Id == appointmentId);
+                if (ap == null)
+                {
+                    return NotFound();
+                }
+                var apt = mapper.Map<AppointmentDto>(ap);
+                return Ok(apt);
             }
-
-            return Ok( ap);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
-        [HttpPost]
+        [HttpPost("AddAppointment")]
         [ProducesResponseType(200, Type = typeof(AddAppointmentDto))]
         [ProducesResponseType(400, Type = typeof(AddAppointmentDto))]
         public async Task<IActionResult> AddAppointment([FromBody] AddAppointmentDto appointment)
         {
-            if (appointment == null)
+            try
             {
-                return BadRequest();
-            }
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
 
-            if (!ModelState.IsValid)
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var apt = mapper.Map<Appointment>(appointment);
+
+                unitofWork.Appointment.Add(apt);
+                unitofWork.Save();
+                var mapped = mapper.Map<AppointmentDto>(appointment);
+
+                return Ok(mapped);
+            }
+            catch (Exception ex)
             {
-                return BadRequest(ModelState);
+                throw new Exception(ex.ToString());
             }
-  
-            var apt = mapper.Map<Appointment>(appointment);
-
-            unitofWork.Appointment.Add(apt);
-            unitofWork.Save();
-
-            return NoContent();
         }
 
 
-        [HttpPut("appointmentId")]
+        [HttpPut("UpdateAppointment")]
         [ProducesResponseType(200, Type = typeof(AppointmentDto))]
         [ProducesResponseType(400, Type = typeof(AppointmentDto))]
         [Authorize(Roles = "Administrator, Doctor, Nurse, Pharmacist, LabTechnician, Patient")]
         public async Task<IActionResult> UpdateAppointment(Guid appointmentId, [FromBody] AppointmentDto appointment)
         {
-            if (appointment == null)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (appointment == null)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            if (GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
-            {
-                var apt = mapper.Map<Appointment>(appointment);
-                var updated = await unitofWork.Appointment.UpdateAsync(apt);
-                unitofWork.Save();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-                return Ok(updated);
+                if (GetAppointment(appointmentId).GetAwaiter().GetResult() != null)
+                {
+                    var apt = mapper.Map<Appointment>(appointment);
+                    var updated = await unitofWork.Appointment.UpdateAsync(apt);
+                    unitofWork.Save();
+
+                    return Ok(updated);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                throw new Exception(ex.ToString());
             }
         }
 
 
-        [HttpDelete("appointmentId")]
+        [HttpDelete("DeleteAppointment")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RemoveAppointment(Guid appointmentId)
         {
-            var ap = unitofWork.Appointment.Get(a => a.Id == appointmentId).GetAwaiter().GetResult();
-            if (ap == null)
+
+            try
             {
-                return NotFound();
+                var ap = unitofWork.Appointment.Get(a => a.Id == appointmentId).GetAwaiter().GetResult();
+                if (ap == null)
+                {
+                    return NotFound();
+                }
+
+                unitofWork.Appointment.Remove(ap);
+                unitofWork.Save();
+
+                var response = new { Message = "Appointment Removed" };
+                return Ok(response);
             }
-
-            unitofWork.Appointment.Remove(ap);
-            unitofWork.Save();
-
-            var response = new { Message = "Appointment Removed" };
-            return Ok(response);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
     }
 }
