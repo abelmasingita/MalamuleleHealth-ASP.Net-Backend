@@ -23,6 +23,7 @@ namespace MalamuleleHealth.EFCore
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<TestResult> TestResults { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
 
 
 

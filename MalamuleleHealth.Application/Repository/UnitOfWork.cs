@@ -33,6 +33,7 @@ namespace MalamuleleHealth.Application.Repository
         public ITestResultRepository TestResult { get; protected set; }
 
         public IWardRepository Ward { get; protected set; }
+        public ISpecialityRepository Speciality { get; protected set; }
 
         public UnitOfWork(ApplicationDBContext dbSet)
         {
@@ -48,6 +49,7 @@ namespace MalamuleleHealth.Application.Repository
             Prescription = new PrescriptionRepository(_dbSet);
             TestResult = new TestResultRepository(_dbSet);
             Ward = new WardRepository(_dbSet);
+            Speciality = new SpecialityRepository(_dbSet);
         }
 
         public void Save()

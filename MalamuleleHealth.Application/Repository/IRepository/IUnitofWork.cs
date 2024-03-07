@@ -19,6 +19,7 @@ namespace MalamuleleHealth.Application.Repository.IRepository
         IPrescriptionRepository Prescription { get; }
         ITestResultRepository TestResult { get; }
         IWardRepository Ward { get; }
+        ISpecialityRepository Speciality { get; }
         void Save();
     }
 }
